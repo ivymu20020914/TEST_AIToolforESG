@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="公司内部 AI 工具中心静态原型，仅展示假数据与模拟流程。" />
+    <meta name="theme-color" content="#eef3ff" />
+    <title>AI 工作台 · 静态原型</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主导航">
+        <a class="brand" href="#/home" aria-label="返回工具中心首页">
+          <span class="brand-mark">A</span>
+          <span><strong>AI 工作台</strong><small>内部试验版</small></span>
+        </a>
+
+        <nav class="nav-list">
+          <a class="nav-item active" href="#/home" data-route-link="home">
+            <span class="nav-icon">⌂</span><span>工具中心</span>
+          </a>
+          <button class="nav-item" type="button" data-action="show-toast" data-message="原型阶段暂不保存历史任务">
+            <span class="nav-icon">◷</span><span>最近任务</span><span class="nav-badge">3</span>
+          </button>
+          <a class="nav-item" href="#/projects" data-route-link="projects">
+            <span class="nav-icon">◇</span><span>项目空间</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+        <div class="trial-meter">
+          <div class="meter-row"><span>本月试用额度</span><strong>32%</strong></div>
+          <div class="meter-track"><span style="width: 32%"></span></div>
+          <small>模拟数据 · 不产生真实费用</small>
+        </div>
+        <button class="user-card" type="button" data-action="open-admin">
+          <span class="avatar">林</span>
+          <span><strong>林予安</strong><small>管理员 · 产品组</small></span>
+          <span>•••</span>
+        </button>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu" type="button" aria-label="打开菜单" data-action="toggle-menu">☰</button>
+          <div class="crumb"><span>工作台</span><b>/</b><strong id="pageCrumb">工具中心</strong></div>
+          <div class="top-actions">
+            <button class="icon-btn" type="button" aria-label="搜索" data-action="focus-search">⌕</button>
+            <button class="icon-btn" type="button" aria-label="通知" data-action="show-toast" data-message="没有新的通知">♢<i></i></button>
+            <button class="text-btn" type="button" data-action="open-data-flow">数据与安全说明</button>
+          </div>
+        </header>
+
+        <div id="app" tabindex="-1"></div>
+      </main>
+    </div>
+
+    <div id="modalRoot" class="modal-root" aria-live="polite"></div>
+    <div id="toast" class="toast" role="status"></div>
+
+    <template id="homeTemplate">
+      <section class="page home-page">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow"><i></i> AI ENABLED WORKSPACE</span>
+            <h1>把重复工作交给 AI，<br /><em>把判断留给专业的人。</em></h1>
+            <p>面向研究、报告与协作场景的内部工具中心。当前为静态演示版，所有内容均为虚构示例。</p>
+            <div class="hero-actions">
+              <button class="primary-btn" type="button" data-route="esg">开始体验 <span>→</span></button>
+              <button class="ghost-btn" type="button" data-action="open-guide">查看使用说明</button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="AI 工作流示意">
+            <div class="orb orb-a"></div><div class="orb orb-b"></div>
+            <div class="mini-window window-a"><span class="mini-icon">✦</span><b>资料已解析</b><small>24 份文档 · 模拟</small></div>
+            <div class="mini-window window-b"><div class="mini-chart"><i></i><i></i><i></i><i></i></div><span><b>同业披露率</b><strong>86%</strong></span></div>
+            <div class="ai-core"><span>AI</span><i></i></div>
+          </div>
+        </div>
+
+        <section class="tool-section">
+          <div class="section-head">
+            <div><span class="section-kicker">WORKFLOW TOOLS</span><h2>选择一个工作场景</h2></div>
+            <label class="search-box"><span>⌕</span><input id="toolSearch" type="search" placeholder="搜索工具，如 ESG、PPT…" autocomplete="off" /></label>
+          </div>
+          <div class="tool-grid" id="toolGrid"></div>
+        </section>
+
+        <section class="overview-grid">
+          <article class="overview-card wide">
+            <div class="card-head"><div><span class="section-kicker">RECENT ACTIVITY</span><h3>最近任务</h3></div><button class="link-btn" type="button" data-action="show-toast" data-message="原型阶段仅展示 3 条模拟记录">查看全部 →</button></div>
+            <div class="activity-table">
+              <div class="table-row table-header"><span>任务名称</span><span>工具</span><span>创建人</span><span>状态</span><span>更新时间</span></div>
+              <div class="table-row"><span><b class="file-dot blue">E</b>新能源汽车同业 ESG 对标</span><span>ESG 对标</span><span>周岚</span><span><i class="status done">已完成</i></span><span>10 分钟前</span></div>
+              <div class="table-row"><span><b class="file-dot purple">P</b>零碳园区方案初稿</span><span>PPT 生成</span><span>林予安</span><span><i class="status running">生成中</i></span><span>32 分钟前</span></div>
+              <div class="table-row"><span><b class="file-dot amber">R</b>储能产业链快照</span><span>行业调研</span><span>陈默</span><span><i class="status draft">草稿</i></span><span>昨天 17:42</span></div>
+            </div>
+          </article>
+          <article class="overview-card stat-card">
+            <div class="card-head"><div><span class="section-kicker">USAGE</span><h3>本月使用</h3></div><button class="more-btn" data-action="open-admin">•••</button></div>
+            <div class="donut"><div><strong>128</strong><span>次任务</span></div></div>
+            <div class="legend"><span><i class="blue-bg"></i>研究分析 <b>54%</b></span><span><i class="violet-bg"></i>文档生成 <b>31%</b></span><span><i class="gray-bg"></i>其他 <b>15%</b></span></div>
+          </article>
+        </section>
+      </section>
+    </template>
+
+    <template id="workspaceTemplate">
+      <section class="page workspace-page">
+        <button class="back-link" type="button" data-route="home">← 返回工具中心</button>
+        <div id="workspaceContent"></div>
+      </section>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
