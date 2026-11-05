@@ -384,3 +384,8 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .6;
 .nav-item { border-radius: 0; }
 .nav-item.active { border-radius: 0; box-shadow: none; background: #2a4561; color: #fff; font-weight: 650; }
 .tool-card:not(.tool-card-ready) .tool-availability { color: #8b7a53; font-size: 11px; }
+
+.indicator-downloads { flex-wrap: wrap; justify-content: flex-end; }
+.excel-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
+.excel-btn:not(:disabled):hover { background: var(--primary-dark); color: #fff; }
+@media (max-width: 600px) { .indicator-workspace .result-toolbar { align-items: flex-start; gap: 14px; flex-direction: column; } .indicator-downloads { justify-content: flex-start; } }

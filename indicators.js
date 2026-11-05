@@ -49,7 +49,7 @@ function renderIndicatorWorkspace() {
         <div class="hint">常规项每次自动纳入。GRI、IFRS S1/S2、VSME 为首批映射，请核对适用条件。行业适用性待业务确认。</div>
       </form>
       <section class="work-panel result-panel">
-        <div class="result-toolbar"><h2>指标表预览</h2><button class="mini-btn" type="button" disabled>下载 CSV</button></div>
+        <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
         <p role="status">选择对标要求，或直接生成仅含常规项的指标表。</p>
         <div class="indicator-filter indicator-search">
           <label for="indicatorSearch">搜索指标</label>
@@ -82,7 +82,8 @@ function renderIndicatorWorkspace() {
   const form = workspace.querySelector('form');
   const run = form.querySelector('button');
   const status = workspace.querySelector('[role="status"]');
-  const download = workspace.querySelector('.mini-btn');
+  const download = workspace.querySelector('[data-export=csv]');
+  const excelDownload = workspace.querySelector('[data-export=xlsx]');
   const preview = workspace.querySelector('.indicator-preview');
   const search = workspace.querySelector('#indicatorSearch');
   const searchCount = workspace.querySelector('.indicator-search-count');
@@ -147,7 +148,7 @@ function renderIndicatorWorkspace() {
     const values = new FormData(form);
     const selected = values.getAll('standard');
     const company = values.get('company').trim() || '公司';
-    run.disabled = download.disabled = search.disabled = dimensionFilter.disabled = topicFilter.disabled = typeFilter.disabled = true;
+    run.disabled = download.disabled = excelDownload.disabled = search.disabled = dimensionFilter.disabled = topicFilter.disabled = typeFilter.disabled = true;
     filterCount.textContent = searchCount.textContent = '';
     preview.replaceChildren();
     status.textContent = '正在读取指标字典…';
@@ -164,8 +165,9 @@ function renderIndicatorWorkspace() {
           definition: fillCompany(item.definition, company)
         }));
       refreshExportSelection = renderIndicatorRows(preview, displayed, company, count => {
-        download.disabled = count === 0;
+        download.disabled = excelDownload.disabled = count === 0;
         download.textContent = `下载 CSV（${count} 条）`;
+        excelDownload.textContent = `下载 Excel（${count} 条）`;
       });
       search.disabled = dimensionFilter.disabled = typeFilter.disabled = displayed.length === 0;
       updateTopicOptions();
@@ -179,10 +181,14 @@ function renderIndicatorWorkspace() {
     }
   });
 
-  download.addEventListener('click', () => {
-    const selected = filteredItems.filter(item => item.includeInExport);
-    if (selected.length) downloadIndicatorCsv(selected);
-  });
+  for (const button of [download, excelDownload]) {
+    button.addEventListener('click', () => {
+      const selected = filteredItems.filter(item => item.includeInExport);
+      if (!selected.length) return;
+      if (button === excelDownload) downloadIndicatorExcel(selected);
+      else downloadIndicatorCsv(selected);
+    });
+  }
 }
 
 function indicatorStandardReference(item, selected) {
