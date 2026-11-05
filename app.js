@@ -25,6 +25,7 @@ const toast = document.querySelector('#toast');
 let toastTimer;
 
 function route() {
+  document.querySelector('.sidebar').classList.remove('open');
   const id = location.hash.replace('#/', '') || 'home';
   document.querySelectorAll('[data-route-link]').forEach(el => el.classList.toggle('active', el.dataset.routeLink === id || (id !== 'home' && id !== 'projects' && el.dataset.routeLink === 'home')));
   if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
