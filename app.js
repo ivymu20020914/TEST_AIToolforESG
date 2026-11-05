@@ -1,5 +1,6 @@
 const tools = [
   { id: 'esg', icon: 'E', title: 'ESG 同业报告对标', desc: '对比同行披露表现，快速定位差距与可借鉴实践。', tag: '研究分析', color: '#3157d5', tint: '#eaf0ff' },
+  { id: 'indicators', icon: '表', title: 'ESG 指标表生成', desc: '按评级及交易所要求筛选指标，生成并下载填报指标表。', tag: '报告收资', color: '#168b72', tint: '#e4f6f0' },
   { id: 'research', icon: '⌁', title: '产业链 / 行业调研', desc: '从公开资料生成产业链图谱、趋势摘要与研究线索。', tag: '研究分析', color: '#168b72', tint: '#e4f6f0' },
   { id: 'word', icon: 'W', title: 'Word 格式转换', desc: '把原始材料整理为规范的报告结构与统一格式。', tag: '文档处理', color: '#4269c9', tint: '#e9effc' },
   { id: 'ppt', icon: 'P', title: 'PPT 模板生成', desc: '根据主题与受众，生成可编辑的汇报结构和示例页面。', tag: '内容生成', color: '#d27836', tint: '#fff0e4' },
@@ -26,7 +27,7 @@ let toastTimer;
 function route() {
   const id = location.hash.replace('#/', '') || 'home';
   document.querySelectorAll('[data-route-link]').forEach(el => el.classList.toggle('active', el.dataset.routeLink === id || (id !== 'home' && id !== 'projects' && el.dataset.routeLink === 'home')));
-  if (id === 'home') renderHome(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
+  if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
@@ -112,7 +113,7 @@ document.addEventListener('click', event => {
     if (action === 'close-modal') modalRoot.classList.remove('open');
     if (action === 'focus-search') { location.hash = '#/home'; setTimeout(() => document.querySelector('#toolSearch')?.focus(), 50); }
     if (action === 'toggle-menu') document.querySelector('.sidebar').classList.toggle('open');
-    if (action === 'open-guide') openModal('原型使用说明', '<p>点击任意工具卡片进入模拟工作台；填写条件或选择本机文件后，点击生成按钮查看固定的假数据结果。</p><div class="notice">所有交互都在当前浏览器页面内完成。刷新后输入会消失，不会传到网络，也不会产生真实费用。</div>');
+    if (action === 'open-guide') openModal('原型使用说明', '<p>点击工具卡片进入工作台。ESG 指标表生成使用本机字典，演示工具提供预设示例。</p><div class="notice">所有交互都在当前浏览器页面内完成。刷新后输入会消失，不会传到网络，也不会产生真实费用。</div>');
   }
   const runTarget = event.target.closest('[data-run-tool]');
   if (runTarget) {

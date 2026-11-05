@@ -1,0 +1,29 @@
+
+# 本地密钥
+.env
+.env.*
+
+# 保留示例配置
+!.env.example
+
+# Python 缓存及虚拟环境
+__pycache__/
+*.pyc
+.venv/
+
+# 本地文件和数据库
+local_data/
+*.sqlite
+*.sqlite3
+*.db
+
+# macOS
+.DS_Store
+
+# 本地开发资料
+local_data/
+.backup/
+.venv/
+.env
+__pycache__/
+*.pyc

@@ -14,10 +14,16 @@
 
 直接双击 `index.html` 即可查看。为了让路由和资源加载方式更接近 GitHub Pages，也可以在本目录启动任意静态文件服务器。
 
+### 本机 ESG 指标表生成
+
+通过绑定到本机地址的静态服务器打开 `#/indicators`。字典文件位于 `local_data/esg-indicators.json`，已配置为忽略提交。更新字典时，在安装了 openpyxl 的 Python 环境中运行 `python scripts/import-indicators.py <指标字典.xlsx>`，然后刷新网页。
+
+多选对标要求后生成，常规项始终纳入。可在预览选择已整理的统计口径，并下载可用 Excel 打开的 CSV。
+
 ## 发布到 GitHub Pages
 
 1. 在 GitHub 新建一个仓库，不要放真实客户文件或密钥。
-2. 将本目录中的 `index.html`、`styles.css`、`app.js`、`.nojekyll` 和 `README.md` 提交到默认分支。
+2. 将本目录中的 `index.html`、`styles.css`、`app.js`、`indicators.js`、`.nojekyll` 和 `README.md` 提交到默认分支。
 3. 打开仓库的 **Settings → Pages**。
 4. 在 **Build and deployment** 中选择 **Deploy from a branch**。
 5. 选择默认分支与 **/(root)**，点击 **Save**。
@@ -26,7 +32,7 @@
 ## 安全边界
 
 - 当前文件选择框只显示本机文件名，不会读取、上传或保存文件。
-- 所有结果都是写死的虚构示例，不连接真实 API、数据库、模型或内部知识库。
+- 演示工具使用虚构结果。本机 ESG 指标表由本机字典生成，发布静态演示时仅提交网页代码。
 - 不要把 API Key、账号密码、客户资料、个人信息或保密文件提交到公开仓库。
 - 正式版应采用后端鉴权和私有对象存储，并实现权限隔离、访问日志、传输加密和生命周期清理。
 

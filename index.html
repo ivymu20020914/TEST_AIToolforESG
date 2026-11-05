@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="公司内部 AI 工具中心静态原型，仅展示假数据与模拟流程。" />
+    <meta name="description" content="公司内部 AI 工具中心，提供静态演示和本机 ESG 指标表生成。" />
     <meta name="theme-color" content="#eef3ff" />
     <title>AI 工作台 · 静态原型</title>
     <link rel="stylesheet" href="styles.css" />
@@ -61,28 +61,16 @@
 
     <template id="homeTemplate">
       <section class="page home-page">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <span class="eyebrow"><i></i> AI ENABLED WORKSPACE</span>
-            <h1>把重复工作交给 AI，<br /><em>把判断留给专业的人。</em></h1>
-            <p>面向研究、报告与协作场景的内部工具中心。当前为静态演示版，所有内容均为虚构示例。</p>
-            <div class="hero-actions">
-              <button class="primary-btn" type="button" data-route="esg">开始体验 <span>→</span></button>
-              <button class="ghost-btn" type="button" data-action="open-guide">查看使用说明</button>
-            </div>
-          </div>
-          <div class="hero-visual" aria-label="AI 工作流示意">
-            <div class="orb orb-a"></div><div class="orb orb-b"></div>
-            <div class="mini-window window-a"><span class="mini-icon">✦</span><b>资料已解析</b><small>24 份文档 · 模拟</small></div>
-            <div class="mini-window window-b"><div class="mini-chart"><i></i><i></i><i></i><i></i></div><span><b>同业披露率</b><strong>86%</strong></span></div>
-            <div class="ai-core"><span>AI</span><i></i></div>
-          </div>
-        </div>
-
-        <section class="tool-section">
+        <section class="tool-section" aria-labelledby="scenarioTitle">
           <div class="section-head">
-            <div><span class="section-kicker">WORKFLOW TOOLS</span><h2>选择一个工作场景</h2></div>
-            <label class="search-box"><span>⌕</span><input id="toolSearch" type="search" placeholder="搜索工具，如 ESG、PPT…" autocomplete="off" /></label>
+            <div>
+              <h1 id="scenarioTitle">选择工作场景</h1>
+              <p class="scenario-intro">点击下方卡片进入工具，按页面提示填写条件并生成结果。</p>
+            </div>
+            <div class="scenario-actions">
+              <button class="link-btn" type="button" data-action="open-guide">使用说明</button>
+              <label class="search-box"><span aria-hidden="true">⌕</span><input id="toolSearch" type="search" aria-label="搜索工具" placeholder="搜索工具，如 ESG、PPT…" autocomplete="off" /></label>
+            </div>
           </div>
           <div class="tool-grid" id="toolGrid"></div>
         </section>
@@ -113,6 +101,7 @@
       </section>
     </template>
 
+    <script src="indicators.js"></script>
     <script src="app.js"></script>
     <script src="api.js"></script>
   </body>
