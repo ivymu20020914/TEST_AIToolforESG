@@ -373,7 +373,7 @@ function renderIndicatorDefinition(item, cells, company) {
 
   function applyScope() {
     item.unit = active.unit;
-    item.definition = [active.definition, item.collectionRequirements ? '合并收集要求（非标准原文）：' + item.collectionRequirements : ''].filter(Boolean).join('\n\n');
+    item.definition = [active.definition, !active.edited && item.collectionRequirements ? '合并收集要求（非标准原文）：' + item.collectionRequirements : ''].filter(Boolean).join('\n\n');
     cells.unit.textContent = item.unit || '—';
     input.value = item.definition || '';
     item.scopeSource = active.standard ? standardReferenceLabel(active.standard, active.reference) : '历史项目口径';
