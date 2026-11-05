@@ -10,7 +10,9 @@ def merge_indicators(items):
     removed = set()
     rules = json.loads(Path(__file__).with_name('indicator-merge-rules.json').read_text())
     for rule in rules:
-        target = index[rule['target']]
+        target = index.get(rule['target'])
+        if target is None:
+            continue
         members = [index[key] for key in rule['members'] if key in index]
         if not members:
             continue
@@ -18,9 +20,11 @@ def merge_indicators(items):
         assert all(i['type'] == '定性' for i in group)
         target['alwaysInclude'] = any(i.get('alwaysInclude') or not i['standards'] for i in group)
         target['standards'] = list(dict.fromkeys(s for i in group for s in i['standards']))
-        target['mergeDetails'] = [{'id': i['id'], 'name': i['name']} for i in group]
+        details = [v for i in group for v in (i.get('mergeDetails') or [{'id': i['id'], 'name': i['name']}])]
+        target['mergeDetails'] = list({v['id']: v for v in details}.values())
         target['mergeKind'] = rule['kind']
-        target['collectionRequirements'] = '；'.join(i['name'] for i in members)
+        requirements = [target.get('collectionRequirements')] + [v for i in members for v in [i['name'], i.get('collectionRequirements')]]
+        target['collectionRequirements'] = '；'.join(dict.fromkeys(v for v in requirements if v))
         for field in ['dimension', 'topic', 'category', 'originalTopic']:
             target[field] = ' | '.join(dict.fromkeys(v.strip() for i in group for v in (i.get(field) or '').split('|') if v.strip())) or None
         target['definition'] = '\n\n'.join(dict.fromkeys(f"【{i['name']}】\n{i['definition']}" for i in group if i.get('definition'))) or None

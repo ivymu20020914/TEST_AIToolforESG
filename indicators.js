@@ -1,3 +1,5 @@
+const indicatorDictionaryVersion = '2026-11-05-r3';
+
 const indicatorStandards = {
   syntaogf_esg: '商道融绿',
   wind_esg: 'Wind',
@@ -173,7 +175,7 @@ function renderIndicatorWorkspace() {
       updateTopicOptions();
       filterPreview();
       const commonCount = displayed.filter(item => (item.alwaysInclude || !item.standards.length)).length;
-      status.textContent = `共 ${displayed.length} 条，常规项 ${commonCount} 条，所选要求追加 ${displayed.length - commonCount} 条。`;
+      status.textContent = `共 ${displayed.length} 条，常规项 ${commonCount} 条，所选要求追加 ${displayed.length - commonCount} 条。字典版本 ${indicatorDictionaryVersion}（全库 ${dictionary.length} 条）。`;
     } catch {
       status.textContent = '指标字典加载失败，请刷新页面后重试。';
     } finally {

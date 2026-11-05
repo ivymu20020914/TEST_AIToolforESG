@@ -1,24 +1,211 @@
 [
- {"target":"ESG-0549","members":["ESG-0550","ESG-0551","ESG-0552","ESG-0554","ESG-0555","ESG-0556","ESG-0557"],"kind":"总项与子项归并"},
- {"target":"ESG-0558","members":["ESG-0559"],"kind":"总项与子项归并"},
- {"target":"ESG-0560","members":["ESG-0561","ESG-0562"],"kind":"总项与子项归并"},
- {"target":"ESG-0563","members":["ESG-0564","ESG-0565","ESG-0566"],"kind":"总项与子项归并"},
- {"target":"ESG-0570","members":["ESG-0571","ESG-0574"],"kind":"总项与子项归并"},
- {"target":"ESG-0594","name":"反歧视、反骚扰与反虐待管理","members":["ESG-0595","ESG-0596","ESG-0597","ESG-0598"],"kind":"相关管理项归并"},
- {"target":"ESG-0607","members":["ESG-0611","ESG-0612"],"kind":"总项与子项归并"},
- {"target":"ESG-0613","members":["ESG-0614","ESG-0615"],"kind":"总项与子项归并"},
- {"target":"ESG-0138","members":["ESG-0140"],"kind":"体系与制度归并"},
- {"target":"ESG-0144","members":["ESG-0105"],"kind":"监测与监测报告归并"},
- {"target":"ESG-0240","members":["ESG-0241"],"kind":"体系与程序归并"},
- {"target":"ESG-0325","members":["ESG-0326"],"kind":"总项与子项归并"},
- {"target":"ESG-0775","members":["ESG-0776","ESG-0777"],"kind":"总项与子项归并"},
- {"target":"ESG-0863","members":["ESG-0864"],"kind":"体系与制度归并"},
- {"target":"ESG-0866","members":["ESG-0867"],"kind":"风险识别与管控归并"},
- {"target":"ESG-0868","members":["ESG-0869"],"kind":"应急准备与演练归并"},
- {"target":"ESG-0887","name":"化学品安全管理","members":["ESG-0888","ESG-0889","ESG-0890","ESG-0891"],"kind":"相关管理项归并"},
- {"target":"ESG-0997","members":["ESG-0998"],"kind":"战略与规划归并"},
- {"target":"ESG-1003","members":["ESG-1207"],"kind":"标准风险管理流程归并"},
- {"target":"ESG-1060","members":["ESG-1061"],"kind":"体系与程序归并"},
- {"target":"ESG-1065","members":["ESG-1066"],"kind":"风险评估与证据归并"},
- {"target":"ESG-1154","members":["ESG-1155","ESG-1156"],"kind":"总项与子项归并"}
+  {
+    "target": "ESG-0549",
+    "members": [
+      "ESG-0550",
+      "ESG-0551",
+      "ESG-0552",
+      "ESG-0554",
+      "ESG-0555",
+      "ESG-0556",
+      "ESG-0557"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0558",
+    "members": [
+      "ESG-0559"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0560",
+    "members": [
+      "ESG-0561",
+      "ESG-0562"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0563",
+    "members": [
+      "ESG-0564",
+      "ESG-0565",
+      "ESG-0566"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0570",
+    "members": [
+      "ESG-0571",
+      "ESG-0574"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0594",
+    "name": "反歧视、反骚扰与反虐待管理",
+    "members": [
+      "ESG-0595",
+      "ESG-0596",
+      "ESG-0597",
+      "ESG-0598"
+    ],
+    "kind": "相关管理项归并"
+  },
+  {
+    "target": "ESG-0607",
+    "members": [
+      "ESG-0611",
+      "ESG-0612"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0613",
+    "members": [
+      "ESG-0614",
+      "ESG-0615"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0138",
+    "members": [
+      "ESG-0140"
+    ],
+    "kind": "体系与制度归并"
+  },
+  {
+    "target": "ESG-0144",
+    "members": [
+      "ESG-0105"
+    ],
+    "kind": "监测与监测报告归并"
+  },
+  {
+    "target": "ESG-0240",
+    "members": [
+      "ESG-0241"
+    ],
+    "kind": "体系与程序归并"
+  },
+  {
+    "target": "ESG-0325",
+    "members": [
+      "ESG-0326"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0775",
+    "members": [
+      "ESG-0776",
+      "ESG-0777"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0863",
+    "members": [
+      "ESG-0864"
+    ],
+    "kind": "体系与制度归并"
+  },
+  {
+    "target": "ESG-0866",
+    "members": [
+      "ESG-0867"
+    ],
+    "kind": "风险识别与管控归并"
+  },
+  {
+    "target": "ESG-0868",
+    "members": [
+      "ESG-0869"
+    ],
+    "kind": "应急准备与演练归并"
+  },
+  {
+    "target": "ESG-0887",
+    "name": "化学品安全管理",
+    "members": [
+      "ESG-0888",
+      "ESG-0889",
+      "ESG-0890",
+      "ESG-0891"
+    ],
+    "kind": "相关管理项归并"
+  },
+  {
+    "target": "ESG-0997",
+    "members": [
+      "ESG-0998"
+    ],
+    "kind": "战略与规划归并"
+  },
+  {
+    "target": "ESG-1003",
+    "members": [
+      "ESG-1207"
+    ],
+    "kind": "标准风险管理流程归并"
+  },
+  {
+    "target": "ESG-1060",
+    "members": [
+      "ESG-1061"
+    ],
+    "kind": "体系与程序归并"
+  },
+  {
+    "target": "ESG-1065",
+    "members": [
+      "ESG-1066"
+    ],
+    "kind": "风险评估与证据归并"
+  },
+  {
+    "target": "ESG-1154",
+    "members": [
+      "ESG-1155",
+      "ESG-1156"
+    ],
+    "kind": "总项与子项归并"
+  },
+  {
+    "target": "ESG-0429",
+    "name": "质量管理体系与认证",
+    "members": [
+      "ESG-0430",
+      "ESG-0431"
+    ],
+    "kind": "管理体系、实施举措与认证统一收集"
+  },
+  {
+    "target": "ESG-0138",
+    "name": "环境管理体系与认证",
+    "members": [
+      "ESG-0139"
+    ],
+    "kind": "管理体系与认证统一收集"
+  },
+  {
+    "target": "ESG-0240",
+    "name": "能源管理体系与认证",
+    "members": [
+      "ESG-0243"
+    ],
+    "kind": "管理体系与认证统一收集"
+  },
+  {
+    "target": "ESG-0862",
+    "name": "职业健康安全管理体系与认证",
+    "members": [
+      "ESG-0863"
+    ],
+    "kind": "管理体系与认证统一收集"
+  }
 ]
