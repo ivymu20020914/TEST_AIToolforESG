@@ -1,4 +1,4 @@
-const indicatorDictionaryVersion = '2026-11-05-r3';
+const indicatorDictionaryVersion = '2026-11-05-r4';
 
 const indicatorStandards = {
   syntaogf_esg: '商道融绿',

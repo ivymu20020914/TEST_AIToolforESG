@@ -149,11 +149,12 @@ def main():
                     'label': variant['label'],
                     'unit': variant['unit'],
                     'definition': variant['definition'],
-                    'standard': variant['standard'],
-                    'reference': variant['reference'],
-                    'note': '按对应标准条款核对适用范围',
+                    'standard': variant.get('standard'),
+                    'reference': variant.get('reference'),
+                    'note': variant.get('note') if variant.get('publicScope') else '按对应标准条款核对适用范围',
+                    'publicScope': variant.get('publicScope', False),
                 }
-                for variant in item.get('variants', []) if variant.get('standard')
+                for variant in item.get('variants', []) if variant.get('standard') or variant.get('publicScope')
             ]
             sources = [
                 {key: source.get(key) for key in (

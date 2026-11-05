@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-05-r3",
-  "count": 778,
-  "sha256": "1f33a039e99f835dfb44042c3ed0e14b7ad1a0a9824d6025c862a2713af65d8f",
+  "version": "2026-11-05-r4",
+  "count": 776,
+  "sha256": "a652a6e3fe95bc4e57987af1c17bb21eac6b35703be8b78a7e370f140cce5b1c",
   "dataFile": "esg-indicators.json"
 }
