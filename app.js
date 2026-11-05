@@ -1,11 +1,11 @@
 const tools = [
-  { id: 'esg', icon: 'E', title: 'ESG 同业报告对标', desc: '对比同行披露表现，快速定位差距与可借鉴实践。', tag: '研究分析', color: '#3157d5', tint: '#eaf0ff' },
-  { id: 'indicators', icon: '表', title: 'ESG 指标表生成', desc: '按评级及交易所要求筛选指标，生成并下载填报指标表。', tag: '报告收资', color: '#168b72', tint: '#e4f6f0' },
-  { id: 'research', icon: '⌁', title: '产业链 / 行业调研', desc: '从公开资料生成产业链图谱、趋势摘要与研究线索。', tag: '研究分析', color: '#168b72', tint: '#e4f6f0' },
-  { id: 'word', icon: 'W', title: 'Word 格式转换', desc: '把原始材料整理为规范的报告结构与统一格式。', tag: '文档处理', color: '#4269c9', tint: '#e9effc' },
-  { id: 'ppt', icon: 'P', title: 'PPT 模板生成', desc: '根据主题与受众，生成可编辑的汇报结构和示例页面。', tag: '内容生成', color: '#d27836', tint: '#fff0e4' },
-  { id: 'assistant', icon: '✦', title: '专业 AI 助手', desc: '使用团队预设的专业方法与表达规范进行问答。', tag: '智能问答', color: '#7a56cb', tint: '#f1eaff' },
-  { id: 'projects', icon: '◇', title: '项目空间 / 团队记忆', desc: '按项目沉淀共识、模板和已确认的团队知识。', tag: '团队协作', color: '#c45c76', tint: '#fdebf0' }
+  { id: 'esg', englishTitle: 'ESG Peer Benchmarking', icon: 'E', title: 'ESG 同业报告对标', desc: '对比同行披露表现，快速定位差距与可借鉴实践。', tag: '研究分析', color: '#3157d5', tint: '#eaf0ff' },
+  { id: 'indicators', englishTitle: 'ESG Indicator Builder', icon: '表', title: 'ESG 指标表生成', desc: '按评级及交易所要求筛选指标，生成并下载填报指标表。', tag: '报告收资', color: '#168b72', tint: '#e4f6f0' },
+  { id: 'research', englishTitle: 'Industry & Value Chain Research', icon: '⌁', title: '产业链 / 行业调研', desc: '从公开资料生成产业链图谱、趋势摘要与研究线索。', tag: '研究分析', color: '#168b72', tint: '#e4f6f0' },
+  { id: 'word', englishTitle: 'Word Formatting', icon: 'W', title: 'Word 格式转换', desc: '把原始材料整理为规范的报告结构与统一格式。', tag: '文档处理', color: '#4269c9', tint: '#e9effc' },
+  { id: 'ppt', englishTitle: 'Presentation Builder', icon: 'P', title: 'PPT 模板生成', desc: '根据主题与受众，生成可编辑的汇报结构和示例页面。', tag: '内容生成', color: '#d27836', tint: '#fff0e4' },
+  { id: 'assistant', englishTitle: 'Professional AI Assistant', icon: '✦', title: '专业 AI 助手', desc: '使用团队预设的专业方法与表达规范进行问答。', tag: '智能问答', color: '#7a56cb', tint: '#f1eaff' },
+  { id: 'projects', englishTitle: 'Projects & Team Knowledge', icon: '◇', title: '项目空间 / 团队记忆', desc: '按项目沉淀共识、模板和已确认的团队知识。', tag: '团队协作', color: '#c45c76', tint: '#fdebf0' }
 ];
 
 const configs = {
@@ -38,7 +38,7 @@ function renderHome() {
   renderToolCards(tools);
   document.querySelector('#toolSearch').addEventListener('input', event => {
     const key = event.target.value.trim().toLowerCase();
-    renderToolCards(tools.filter(tool => `${tool.title}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
+    renderToolCards(tools.filter(tool => `${tool.title}${tool.englishTitle}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
   });
 }
 
@@ -48,7 +48,7 @@ function renderToolCards(items) {
   grid.innerHTML = items.map(tool => `
     <button class="tool-card${tool.id === 'indicators' ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
       <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${tool.id === 'indicators' ? '可试用' : '功能演示'}</span></span>
-      <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
+      <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><span class="tool-title-en" lang="en">${tool.englishTitle}</span><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
       <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : '查看工作流程与结果示例'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
 }
@@ -79,7 +79,7 @@ function renderWorkspace(id) {
   const upload = config.upload ? `<label class="upload-zone"><input type="file" data-fake-upload /><span class="upload-glyph">⇧</span><strong>选择本机文件（仅演示）</strong><span>PDF / DOCX / XLSX · 不会上传或保存</span></label>` : '';
   document.querySelector('#workspaceContent').innerHTML = `
     <div class="workspace-hero">
-      <div class="workspace-title"><span class="tool-icon" style="color:${tool.color};background:${tool.tint}">${tool.icon}</span><div><h1>${config.title}</h1><p>${config.subtitle}</p></div></div>
+      <div class="workspace-title"><span class="tool-icon" style="color:${tool.color};background:${tool.tint}">${tool.icon}</span><div><h1>${config.title}</h1><span class="workspace-title-en" lang="en">${tool.englishTitle}</span><p>${config.subtitle}</p></div></div>
       <span class="prototype-tag">● 静态原型 · 假数据</span>
     </div>
     <div class="workspace-grid">

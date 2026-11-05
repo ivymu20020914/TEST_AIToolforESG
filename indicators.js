@@ -34,7 +34,7 @@ function renderIndicatorWorkspace() {
   const workspace = app.querySelector('#workspaceContent');
   workspace.innerHTML = `
     <div class="workspace-hero">
-      <div class="workspace-title"><span class="tool-icon">表</span><div><h1>ESG 指标表生成</h1><p>选择适用要求生成指标表。反馈时请说明指标名称、所选标准和建议。</p></div></div>
+      <div class="workspace-title"><span class="tool-icon">表</span><div><h1>ESG 指标表生成</h1><span class="workspace-title-en" lang="en">ESG Indicator Builder</span><p>选择适用要求生成指标表。反馈时请说明指标名称、所选标准和建议。</p></div></div>
       <span class="prototype-tag">试用版 · 欢迎反馈</span>
     </div>
     <div class="workspace-grid indicator-workspace">
