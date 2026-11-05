@@ -379,3 +379,8 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .6;
 .tool-card:hover .tool-meta strong { background: transparent; color: #173b68; }
 .workspace-title-en { display: block; color: #7a8b9d; font-size: 13px; letter-spacing: .02em; line-height: 1.5; margin: -2px 0 12px; }
 @media (max-width: 760px) { .tool-card, .tool-card-ready { padding: 22px 20px 18px; } .tool-title-en { font-size: 11px; } }
+
+/* Quiet navigation emphasis without an accent rail. */
+.nav-item { border-radius: 0; }
+.nav-item.active { border-radius: 0; box-shadow: none; background: #2a4561; color: #fff; font-weight: 650; }
+.tool-card:not(.tool-card-ready) .tool-availability { color: #8b7a53; font-size: 11px; }

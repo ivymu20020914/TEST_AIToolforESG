@@ -28,6 +28,7 @@ function route() {
   document.querySelector('.sidebar').classList.remove('open');
   const id = location.hash.replace('#/', '') || 'home';
   document.querySelectorAll('[data-route-link]').forEach(el => el.classList.toggle('active', el.dataset.routeLink === id || (id !== 'home' && id !== 'projects' && el.dataset.routeLink === 'home')));
+  if (id === 'projects') { location.hash = '#/home'; return; }
   if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
@@ -35,10 +36,10 @@ function route() {
 function renderHome() {
   document.querySelector('#pageCrumb').textContent = '工具中心';
   app.replaceChildren(homeTemplate.content.cloneNode(true));
-  renderToolCards(tools);
+  renderToolCards(tools.filter(tool => tool.id !== 'projects'));
   document.querySelector('#toolSearch').addEventListener('input', event => {
     const key = event.target.value.trim().toLowerCase();
-    renderToolCards(tools.filter(tool => `${tool.title}${tool.englishTitle}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
+    renderToolCards(tools.filter(tool => tool.id !== 'projects').filter(tool => `${tool.title}${tool.englishTitle}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
   });
 }
 
@@ -47,9 +48,9 @@ function renderToolCards(items) {
   if (!items.length) { grid.innerHTML = '<div class="empty-search">没有找到匹配的工具，试试“研究”或“文档”。</div>'; return; }
   grid.innerHTML = items.map(tool => `
     <button class="tool-card${tool.id === 'indicators' ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
-      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${tool.id === 'indicators' ? '可试用' : '功能演示'}</span></span>
+      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${tool.id === 'indicators' ? '可试用' : '开发中'}</span></span>
       <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><span class="tool-title-en" lang="en">${tool.englishTitle}</span><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
-      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : '查看工作流程与结果示例'}</span><strong aria-hidden="true">↗</strong></span>
+      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
 }
 
@@ -80,7 +81,7 @@ function renderWorkspace(id) {
   document.querySelector('#workspaceContent').innerHTML = `
     <div class="workspace-hero">
       <div class="workspace-title"><span class="tool-icon" style="color:${tool.color};background:${tool.tint}">${tool.icon}</span><div><h1>${config.title}</h1><span class="workspace-title-en" lang="en">${tool.englishTitle}</span><p>${config.subtitle}</p></div></div>
-      <span class="prototype-tag">● 静态原型 · 假数据</span>
+      <span class="prototype-tag">开发中 · 界面演示</span>
     </div>
     <div class="workspace-grid">
       <section class="work-panel"><h2>${config.inputTitle}</h2><p>${config.inputDesc}</p>${fields}${upload}<button class="run-btn" type="button" data-run-tool="${id}">${config.action}</button><div class="hint">安全提示：请勿在此原型中输入或选择真实客户资料、个人信息或密钥。</div></section>
