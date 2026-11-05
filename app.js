@@ -45,10 +45,24 @@ function renderToolCards(items) {
   const grid = document.querySelector('#toolGrid');
   if (!items.length) { grid.innerHTML = '<div class="empty-search">没有找到匹配的工具，试试“研究”或“文档”。</div>'; return; }
   grid.innerHTML = items.map(tool => `
-    <button class="tool-card" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
-      <span class="tool-icon">${tool.icon}</span><h3>${tool.title}</h3><p>${tool.desc}</p>
-      <span class="tool-meta"><span>${tool.tag}</span><strong>↗</strong></span>
+    <button class="tool-card${tool.id === 'indicators' ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
+      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${tool.id === 'indicators' ? '可试用' : '功能演示'}</span></span>
+      <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
+      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : '查看工作流程与结果示例'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
+}
+
+function toolArt(id) {
+  const paths = {
+    esg: '<path d="M20 18h27v55H20zM52 31h27v42H52zM25 30h17m-17 9h17m-17 9h11m21-5h17m-17 9h17"/><path class="art-accent" d="M30 62h7m24 0h9"/>',
+    indicators: '<rect x="20" y="18" width="58" height="58" rx="2"/><path d="M20 35h58M38 35v41M20 49h58M20 62h58"/><path class="art-accent" d="m48 24 4 4 8-8m-14 23h8m7 14h8"/>',
+    research: '<circle cx="49" cy="46" r="13"/><circle cx="21" cy="22" r="7"/><circle cx="79" cy="26" r="7"/><circle cx="24" cy="75" r="7"/><circle cx="79" cy="73" r="7"/><path d="m27 27 12 10m21 1 13-8M39 56 29 69m31-13 13 12"/>',
+    word: '<path d="M26 16h34l15 15v48H26zM60 16v16h15M36 43h28M36 53h28M36 63h17"/><path class="art-accent" d="M18 25v43"/>',
+    ppt: '<rect x="16" y="21" width="68" height="48" rx="2"/><path d="M50 69v14m-13 0h26M26 57V45m12 12V36m12 21V41m11-4h13m-13 9h13"/><path class="art-accent" d="M24 28h11"/>',
+    assistant: '<path d="M22 22h56v43H49L33 77V65H22zM33 38h34M33 48h23"/><path class="art-accent" d="m70 12 3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>',
+    projects: '<path d="M15 29h29l7 7h34v39H15zM22 29V20h28l7 8h22v8M29 49h42M29 59h27"/><path class="art-accent" d="M64 66h10"/>'
+  };
+  return `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${paths[id] || paths.projects}</svg>`;
 }
 
 function renderWorkspace(id) {

@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="公司内部 AI 工具中心，提供静态演示和本机 ESG 指标表生成。" />
-    <meta name="theme-color" content="#eef3ff" />
-    <title>AI 工作台 · 静态原型</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="theme-color" content="#173f74" />
+    <title>商道 AI 工作台</title>
+    <link rel="stylesheet" href="styles.css?v=20261105" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="主导航">
         <a class="brand" href="#/home" aria-label="返回工具中心首页">
-          <span class="brand-mark">A</span>
-          <span><strong>AI 工作台</strong><small>内部试验版</small></span>
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span><strong>商道 AI 工作台</strong><small>SYNTAO · WORKSPACE</small></span>
         </a>
 
+        <div class="nav-caption">工作空间</div>
         <nav class="nav-list">
           <a class="nav-item active" href="#/home" data-route-link="home">
             <span class="nav-icon">⌂</span><span>工具中心</span>
@@ -64,8 +65,9 @@
         <section class="tool-section" aria-labelledby="scenarioTitle">
           <div class="section-head">
             <div>
+              <span class="section-kicker home-kicker">TOOLS FOR BETTER WORK</span>
               <h1 id="scenarioTitle">选择工作场景</h1>
-              <p class="scenario-intro">点击下方卡片进入工具，按页面提示填写条件并生成结果。</p>
+              <p class="scenario-intro">从研究分析到报告收资，选择工具，开始你的工作。</p>
             </div>
             <div class="scenario-actions">
               <button class="link-btn" type="button" data-action="open-guide">使用说明</button>
@@ -75,9 +77,9 @@
           <div class="tool-grid" id="toolGrid"></div>
         </section>
 
-        <section class="overview-grid">
+        <section class="overview-grid" aria-label="模拟使用概览">
           <article class="overview-card wide">
-            <div class="card-head"><div><span class="section-kicker">RECENT ACTIVITY</span><h3>最近任务</h3></div><button class="link-btn" type="button" data-action="show-toast" data-message="原型阶段仅展示 3 条模拟记录">查看全部 →</button></div>
+            <div class="card-head"><div><span class="section-kicker">RECENT ACTIVITY · 演示数据</span><h3>最近任务</h3></div><button class="link-btn" type="button" data-action="show-toast" data-message="原型阶段仅展示 3 条模拟记录">查看全部 →</button></div>
             <div class="activity-table">
               <div class="table-row table-header"><span>任务名称</span><span>工具</span><span>创建人</span><span>状态</span><span>更新时间</span></div>
               <div class="table-row"><span><b class="file-dot blue">E</b>新能源汽车同业 ESG 对标</span><span>ESG 对标</span><span>周岚</span><span><i class="status done">已完成</i></span><span>10 分钟前</span></div>
@@ -86,7 +88,7 @@
             </div>
           </article>
           <article class="overview-card stat-card">
-            <div class="card-head"><div><span class="section-kicker">USAGE</span><h3>本月使用</h3></div><button class="more-btn" data-action="open-admin">•••</button></div>
+            <div class="card-head"><div><span class="section-kicker">USAGE · 演示数据</span><h3>本月使用</h3></div><button class="more-btn" data-action="open-admin">•••</button></div>
             <div class="donut"><div><strong>128</strong><span>次任务</span></div></div>
             <div class="legend"><span><i class="blue-bg"></i>研究分析 <b>54%</b></span><span><i class="violet-bg"></i>文档生成 <b>31%</b></span><span><i class="gray-bg"></i>其他 <b>15%</b></span></div>
           </article>
@@ -102,7 +104,7 @@
     </template>
 
     <script src="indicators.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=20261105"></script>
     <script src="api.js"></script>
   </body>
 </html>
