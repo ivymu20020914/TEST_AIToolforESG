@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 from openpyxl import load_workbook
+from merge_indicators import merge_indicators
 
 
 STANDARD_FIELDS = ('msci_esg', 'wind_esg', 'syntaogf_esg', 'ecovadis', 'a_share_pending',
@@ -135,7 +136,7 @@ def main():
     parser.add_argument('--publish-snapshot', action='store_true', help='同时生成公开试用版通用指标快照')
     args = parser.parse_args()
     target = Path(__file__).resolve().parents[1] / 'local_data' / 'esg-indicators.json'
-    indicators = import_dictionary(args.workbook)
+    indicators = merge_indicators(import_dictionary(args.workbook))
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_suffix('.tmp')
     temporary.write_text(json.dumps(indicators, ensure_ascii=False), encoding='utf-8')
@@ -177,6 +178,10 @@ def main():
                 'industry': None,
                 'note': '通用框架试用，统计口径可由项目经理补充调整',
                 'standards': item['standards'],
+                'alwaysInclude': item.get('alwaysInclude', False),
+                'mergeDetails': item.get('mergeDetails', []),
+                'mergeKind': item.get('mergeKind'),
+                'collectionRequirements': item.get('collectionRequirements'),
                 'variants': standard_variants,
                 'standardSources': sources,
             })

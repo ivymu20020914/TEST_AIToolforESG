@@ -155,7 +155,7 @@ function renderIndicatorWorkspace() {
     try {
       const dictionary = await loadIndicators();
       displayed = dictionary
-        .filter(item => !item.standards.length || item.standards.some(key => selected.includes(key)))
+        .filter(item => (item.alwaysInclude || !item.standards.length) || item.standards.some(key => selected.includes(key)))
         .map(item => ({
           ...item,
           includeInExport: true,
@@ -172,7 +172,7 @@ function renderIndicatorWorkspace() {
       search.disabled = dimensionFilter.disabled = typeFilter.disabled = displayed.length === 0;
       updateTopicOptions();
       filterPreview();
-      const commonCount = displayed.filter(item => !item.standards.length).length;
+      const commonCount = displayed.filter(item => (item.alwaysInclude || !item.standards.length)).length;
       status.textContent = `共 ${displayed.length} 条，常规项 ${commonCount} 条，所选要求追加 ${displayed.length - commonCount} 条。`;
     } catch {
       status.textContent = '指标字典加载失败，请刷新页面后重试。';
@@ -335,6 +335,16 @@ function renderIndicatorDefinition(item, cells, company) {
     return { unit: variant.unit, scope, definition: detail || scope,
       standard: variant.standard, reference: variant.reference };
   }) : [{ unit: item.unit, definition: item.definition }];
+  if (item.mergeDetails?.length) {
+    const merged = document.createElement('details');
+    merged.className = 'indicator-standard-source';
+    const heading = document.createElement('summary');
+    heading.textContent = `已合并 ${item.mergeDetails.length} 项 · 查看明细`;
+    const detail = document.createElement('div');
+    detail.textContent = item.mergeKind + '\n' + item.mergeDetails.map(source => `${source.id} ${source.name}`).join('\n');
+    merged.append(heading, detail);
+    cell.append(merged);
+  }
   const sourceDetails = document.createElement('details');
   sourceDetails.className = 'indicator-standard-source';
   if (item.standardReference) {
@@ -363,7 +373,7 @@ function renderIndicatorDefinition(item, cells, company) {
 
   function applyScope() {
     item.unit = active.unit;
-    item.definition = active.definition;
+    item.definition = [active.definition, item.collectionRequirements ? '合并收集要求（非标准原文）：' + item.collectionRequirements : ''].filter(Boolean).join('\n\n');
     cells.unit.textContent = item.unit || '—';
     input.value = item.definition || '';
     item.scopeSource = active.standard ? standardReferenceLabel(active.standard, active.reference) : '历史项目口径';
