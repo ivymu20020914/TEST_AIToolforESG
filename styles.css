@@ -123,12 +123,9 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
 
 .indicator-page { max-width: 1680px; padding-inline: clamp(16px, 1.25vw, 32px); }
-.indicator-workspace { grid-template-columns: 1fr; align-items: start; }
+.indicator-workspace { display: flex; flex-direction: column; align-items: stretch; }
 .indicator-workspace .work-panel { min-width: 0; padding: 18px; }
-@media (min-width: 1280px) {
-  .indicator-workspace { grid-template-columns: clamp(215px, 16vw, 230px) minmax(0, 1fr); }
-}
-.indicator-workspace .indicator-options { display: grid; gap: 11px; border: 1px solid var(--line); border-radius: 9px; margin: 18px 0 0; padding: 12px; font-size: 12px; }
+.indicator-workspace .indicator-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 9px; border: 1px solid var(--line); border-radius: 9px; margin: 18px 0 0; padding: 12px; font-size: 12px; }
 .indicator-options legend { font-weight: 700; padding: 0 5px; }
 .indicator-options label { display: flex; align-items: center; gap: 6px; padding: 8px; border: 1px solid #e8d894; border-radius: 7px; background: #fff8d9; color: #493a11; cursor: pointer; }
 .indicator-options label:has(input:checked) { background: #ffe68a; border-color: #b58917; }
@@ -165,3 +162,15 @@ button { color: inherit; }
 .indicator-scope-source { margin: 5px 0; color: #735715; font-size: 11px; }
 
 .indicator-id { display: block; color: var(--muted); font-size: 10px; margin-top: 3px; }
+
+.indicator-workspace > form { display: grid; grid-template-columns: minmax(180px, 1fr) auto; gap: 12px 20px; }
+.indicator-workspace > form h2 { grid-column: 1 / -1; }
+.indicator-workspace > form .field { grid-column: 1; grid-row: 2; max-width: 360px; margin: 0; }
+.indicator-workspace > form .run-btn { grid-column: 2; grid-row: 2; align-self: end; width: auto; margin: 0; min-width: 150px; }
+.indicator-workspace > form .indicator-options { grid-column: 1 / -1; grid-row: 3; margin: 0; }
+.indicator-workspace > form .hint { grid-column: 1 / -1; margin: 0; }
+@media (max-width: 600px) {
+  .indicator-workspace > form { grid-template-columns: minmax(0, 1fr); }
+  .indicator-workspace > form .field { max-width: none; }
+  .indicator-workspace > form .run-btn { grid-column: 1; grid-row: 4; width: 100%; }
+}
