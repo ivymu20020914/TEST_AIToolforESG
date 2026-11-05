@@ -132,6 +132,7 @@ def import_dictionary(source):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('workbook', type=Path)
+    parser.add_argument('--publish-snapshot', action='store_true', help='同时生成公开试用版通用指标快照')
     args = parser.parse_args()
     target = Path(__file__).resolve().parents[1] / 'local_data' / 'esg-indicators.json'
     indicators = import_dictionary(args.workbook)
@@ -139,6 +140,49 @@ def main():
     temporary = target.with_suffix('.tmp')
     temporary.write_text(json.dumps(indicators, ensure_ascii=False), encoding='utf-8')
     temporary.replace(target)
+    if args.publish_snapshot:
+        public_items = []
+        for item in indicators:
+            standard_variants = [
+                {
+                    'label': variant['label'],
+                    'unit': variant['unit'],
+                    'definition': variant['definition'],
+                    'standard': variant['standard'],
+                    'reference': variant['reference'],
+                    'note': '按对应标准条款核对适用范围',
+                }
+                for variant in item.get('variants', []) if variant.get('standard')
+            ]
+            sources = [
+                {key: source.get(key) for key in (
+                    'standard', 'name', 'version', 'concept', 'reference',
+                    'originalLabel', 'originalDefinition', 'measurement', 'translationNote'
+                )}
+                for source in item.get('standardSources', [])
+            ]
+            for source in sources:
+                source['condition'] = '按对应标准条款核对适用范围'
+                source['status'] = '首批标准映射'
+            primary = standard_variants[0] if standard_variants else {}
+            public_items.append({
+                'id': item['id'],
+                'name': item['name'],
+                'dimension': item['dimension'],
+                'topic': item['topic'],
+                'category': None,
+                'type': item['type'],
+                'unit': primary.get('unit', item['unit']),
+                'definition': primary.get('definition'),
+                'industry': None,
+                'note': '通用框架试用，统计口径可由项目经理补充调整',
+                'standards': item['standards'],
+                'variants': standard_variants,
+                'standardSources': sources,
+            })
+        public_target = target.parent.parent / 'data' / 'esg-indicators.json'
+        public_target.parent.mkdir(parents=True, exist_ok=True)
+        public_target.write_text(json.dumps(public_items, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print(f'已导入 {len(indicators)} 条指标')
 
 

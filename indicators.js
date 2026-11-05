@@ -13,7 +13,9 @@ const indicatorStandards = {
 let indicatorDataRequest;
 
 function loadIndicators() {
-  indicatorDataRequest ??= fetch('./local_data/esg-indicators.json', { cache: 'no-cache' })
+  const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+  const dataPath = local ? './local_data/esg-indicators.json' : './data/esg-indicators.json';
+  indicatorDataRequest ??= fetch(dataPath, { cache: 'no-cache' })
     .then(response => {
       if (!response.ok) throw new Error('指标字典未加载');
       return response.json();
@@ -30,11 +32,10 @@ function renderIndicatorWorkspace() {
   app.replaceChildren(workspaceTemplate.content.cloneNode(true));
   app.querySelector('.workspace-page').classList.add('indicator-page');
   const workspace = app.querySelector('#workspaceContent');
-  const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   workspace.innerHTML = `
     <div class="workspace-hero">
-      <div class="workspace-title"><span class="tool-icon">表</span><div><h1>ESG 指标表生成</h1><p>从指标字典选择适用要求，生成定量及定性指标表。</p></div></div>
-      <span class="prototype-tag">本机字典</span>
+      <div class="workspace-title"><span class="tool-icon">表</span><div><h1>ESG 指标表生成</h1><p>选择适用要求生成指标表。反馈时请说明指标名称、所选标准和建议。</p></div></div>
+      <span class="prototype-tag">试用版 · 欢迎反馈</span>
     </div>
     <div class="workspace-grid indicator-workspace">
       <form class="work-panel">
@@ -44,12 +45,12 @@ function renderIndicatorWorkspace() {
           <legend>对标要求（可多选）</legend>
           ${Object.entries(indicatorStandards).map(([id, label]) => `<label><input type="checkbox" name="standard" value="${id}" /> ${label}</label>`).join('')}
         </fieldset>
-        <button class="run-btn" type="submit" ${local ? '' : 'disabled'}>生成指标表</button>
+        <button class="run-btn" type="submit">生成指标表</button>
         <div class="hint">常规项每次自动纳入。GRI、IFRS S1/S2、VSME 为首批映射，请核对适用条件。行业适用性待业务确认。</div>
       </form>
       <section class="work-panel result-panel">
         <div class="result-toolbar"><h2>指标表预览</h2><button class="mini-btn" type="button" disabled>下载 CSV</button></div>
-        <p role="status">${local ? '选择对标要求，或直接生成仅含常规项的指标表。' : '请通过本机工作台加载内部指标字典。'}</p>
+        <p role="status">选择对标要求，或直接生成仅含常规项的指标表。</p>
         <div class="indicator-filter indicator-search">
           <label for="indicatorSearch">搜索指标</label>
           <input id="indicatorSearch" type="search" placeholder="输入指标名称、编号或议题" disabled />
@@ -142,7 +143,7 @@ function renderIndicatorWorkspace() {
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!local || run.disabled) return;
+    if (run.disabled) return;
     const values = new FormData(form);
     const selected = values.getAll('standard');
     const company = values.get('company').trim() || '公司';
@@ -172,7 +173,7 @@ function renderIndicatorWorkspace() {
       const commonCount = displayed.filter(item => !item.standards.length).length;
       status.textContent = `共 ${displayed.length} 条，常规项 ${commonCount} 条，所选要求追加 ${displayed.length - commonCount} 条。`;
     } catch {
-      status.textContent = '无法读取本机指标字典。请确认已导入字典，再重新生成。';
+      status.textContent = '指标字典加载失败，请刷新页面后重试。';
     } finally {
       run.disabled = false;
     }
@@ -273,6 +274,12 @@ function renderIndicatorRows(preview, items, company, onExportCount) {
       const cell = row.insertCell();
       cells[key] = cell;
       cell.textContent = item[key] || '—';
+      if (key === 'name') {
+        const identifier = document.createElement('small');
+        identifier.className = 'indicator-id';
+        identifier.textContent = item.id;
+        cell.append(identifier);
+      }
     }
     renderIndicatorDefinition(item, cells, company);
   }
