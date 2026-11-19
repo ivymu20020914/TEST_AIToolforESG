@@ -1,6 +1,7 @@
 const tools = [
   { id: 'esg', englishTitle: 'ESG Peer Benchmarking', icon: 'E', title: 'ESG 同业报告对标', desc: '对比同行披露表现，快速定位差距与可借鉴实践。', tag: '研究分析', color: '#3157d5', tint: '#eaf0ff' },
   { id: 'indicators', englishTitle: 'ESG Indicator Builder', icon: '表', title: 'ESG 指标表生成', desc: '按评级及交易所要求筛选指标，生成并下载填报指标表。', tag: '报告收资', color: '#168b72', tint: '#e4f6f0' },
+  { id: 'questionnaire', englishTitle: 'Questionnaire Builder', icon: '问', title: '问卷生成', desc: '把已有项目信息拆分为定量收集表与可编辑的定性问卷。', tag: '报告收资', color: '#224d82', tint: '#e8eef5' },
   { id: 'research', englishTitle: 'Industry & Value Chain Research', icon: '⌁', title: '产业链 / 行业调研', desc: '从公开资料生成产业链图谱、趋势摘要与研究线索。', tag: '研究分析', color: '#168b72', tint: '#e4f6f0' },
   { id: 'word', englishTitle: 'Word Formatting', icon: 'W', title: 'Word 格式转换', desc: '把原始材料整理为规范的报告结构与统一格式。', tag: '文档处理', color: '#4269c9', tint: '#e9effc' },
   { id: 'ppt', englishTitle: 'Presentation Builder', icon: 'P', title: 'PPT 模板生成', desc: '根据主题与受众，生成可编辑的汇报结构和示例页面。', tag: '内容生成', color: '#d27836', tint: '#fff0e4' },
@@ -29,7 +30,7 @@ function route() {
   const id = location.hash.replace('#/', '') || 'home';
   document.querySelectorAll('[data-route-link]').forEach(el => el.classList.toggle('active', el.dataset.routeLink === id || (id !== 'home' && id !== 'projects' && el.dataset.routeLink === 'home')));
   if (id === 'projects') { location.hash = '#/home'; return; }
-  if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
+  if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (id === 'questionnaire') renderQuestionnaireWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
@@ -47,10 +48,10 @@ function renderToolCards(items) {
   const grid = document.querySelector('#toolGrid');
   if (!items.length) { grid.innerHTML = '<div class="empty-search">没有找到匹配的工具，试试“研究”或“文档”。</div>'; return; }
   grid.innerHTML = items.map(tool => `
-    <button class="tool-card${tool.id === 'indicators' ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
-      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${tool.id === 'indicators' ? '可试用' : '开发中'}</span></span>
+    <button class="tool-card${['indicators','questionnaire'].includes(tool.id) ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
+      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${['indicators','questionnaire'].includes(tool.id) ? '可试用' : '开发中'}</span></span>
       <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><span class="tool-title-en" lang="en">${tool.englishTitle}</span><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
-      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
+      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : tool.id === 'questionnaire' ? '本机解析 · 编辑选择 · Word / Excel 导出' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
 }
 
@@ -58,6 +59,7 @@ function toolArt(id) {
   const paths = {
     esg: '<path d="M20 18h27v55H20zM52 31h27v42H52zM25 30h17m-17 9h17m-17 9h11m21-5h17m-17 9h17"/><path class="art-accent" d="M30 62h7m24 0h9"/>',
     indicators: '<rect x="20" y="18" width="58" height="58" rx="2"/><path d="M20 35h58M38 35v41M20 49h58M20 62h58"/><path class="art-accent" d="m48 24 4 4 8-8m-14 23h8m7 14h8"/>',
+    questionnaire: '<path d="M22 18h56v64H22zM31 32h7v7h-7zm0 15h7v7h-7zm0 15h7v7h-7zM46 35h23M46 50h23M46 65h17"/><path class="art-accent" d="m31 50 3 3 6-7"/>',
     research: '<circle cx="49" cy="46" r="13"/><circle cx="21" cy="22" r="7"/><circle cx="79" cy="26" r="7"/><circle cx="24" cy="75" r="7"/><circle cx="79" cy="73" r="7"/><path d="m27 27 12 10m21 1 13-8M39 56 29 69m31-13 13 12"/>',
     word: '<path d="M26 16h34l15 15v48H26zM60 16v16h15M36 43h28M36 53h28M36 63h17"/><path class="art-accent" d="M18 25v43"/>',
     ppt: '<rect x="16" y="21" width="68" height="48" rx="2"/><path d="M50 69v14m-13 0h26M26 57V45m12 12V36m12 21V41m11-4h13m-13 9h13"/><path class="art-accent" d="M24 28h11"/>',

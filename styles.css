@@ -122,6 +122,54 @@ button { color: inherit; }
 @media (max-width: 760px) { .app-shell { display:block; }.sidebar { position: fixed; left: 0; transform: translateX(-100%); width: 236px; transition: .2s ease; }.sidebar.open { transform: translateX(0); box-shadow: 20px 0 50px rgba(0,0,0,.25); }.topbar { height:60px; padding:0 18px; }.mobile-menu{display:block}.crumb{display:none}.text-btn{display:none}.page{padding:24px 18px 48px}.section-head{align-items:flex-start;flex-direction:column}.scenario-actions{width:100%;justify-content:flex-start}.search-box{width:100%}.tool-grid{grid-template-columns:1fr}.table-row{grid-template-columns:1.7fr .9fr .7fr}.table-row span:nth-child(3),.table-row span:nth-child(5){display:none}.wide{overflow-x:auto}.workspace-hero{grid-template-columns:1fr}.result-summary{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow-step:not(:last-child)::after{content:"↓";right:49%;top:auto;bottom:-12px}.admin-stats{grid-template-columns:1fr}.project-board{grid-template-columns:1fr} }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
 
+/* Questionnaire builder */
+.questionnaire-page { max-width: 1500px; margin: 0 auto; }
+.ready-tag { color: #315f53; background: #e9f5ef; }
+.questionnaire-boundary { margin: 20px 0; padding: 14px 16px; border-left: 3px solid var(--brand-yellow); background: #fffbec; color: #665b37; font-size: 12px; line-height: 1.8; }
+.questionnaire-boundary strong { color: #183c64; margin-right: 8px; }
+.questionnaire-source { margin-top: 20px; }
+.questionnaire-step { display: flex; align-items: flex-start; gap: 13px; }
+.questionnaire-step > span { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px; color: #fff; background: var(--primary); border-radius: 50%; font-size: 11px; }
+.questionnaire-step h2 { margin: 2px 0 5px; }
+.questionnaire-step p, .result-toolbar p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.questionnaire-source .field { display: flex; flex-direction: column; }
+.questionnaire-source .field > span { color: #52657a; font-size: 12px; font-weight: 500; }
+.questionnaire-source-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 16px; }
+.questionnaire-source-actions .run-btn { width: auto; margin: 0; }
+.file-button { position: relative; overflow: hidden; cursor: pointer; }
+.file-button input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.questionnaire-results { display: grid; min-width: 0; gap: 20px; margin-top: 28px; scroll-margin-top: 20px; }
+.questionnaire-results > .work-panel { min-width: 0; }
+.questionnaire-result-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.questionnaire-counts { color: #52657a; font-size: 13px; }
+.questionnaire-counts b { color: var(--primary); font-size: 18px; }
+.questionnaire-results .result-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.select-all { white-space: nowrap; color: #52657a; font-size: 12px; }
+.select-all input, .question-card input { accent-color: var(--primary); }
+.questionnaire-table-wrap { overflow: auto; border: 1px solid #e0e6ec; border-radius: 4px; }
+.questionnaire-table { width: 100%; min-width: 1050px; border-collapse: collapse; font-size: 12px; }
+.questionnaire-table th { padding: 11px 9px; background: #edf2f6; color: #526a82; text-align: left; font-weight: 500; }
+.questionnaire-table td { padding: 9px; border-top: 1px solid #e7edf2; vertical-align: top; }
+.questionnaire-table input:not([type=checkbox]), .questionnaire-table select, .questionnaire-table textarea { width: 100%; min-width: 90px; padding: 7px; border: 1px solid #d8e0e8; border-radius: 3px; background: #fff; color: #304a66; font: inherit; }
+.questionnaire-table textarea { min-height: 58px; resize: vertical; }
+.questionnaire-table td:nth-child(2) { min-width: 210px; }.questionnaire-table td:nth-child(5) { min-width: 230px; }
+.qualitative-list { display: grid; gap: 14px; }
+.question-card { padding: 17px; border: 1px solid #dce3e9; border-radius: 5px; background: #fbfcfd; }
+.question-card-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; }
+.question-card-head label { font-size: 12px; color: #304a66; }
+.question-card-head > span { color: #91a3b5; font-size: 11px; }
+.question-topic { margin: 13px 0 9px; color: #66798d; font-size: 11px; }
+.question-variants { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.question-variant { display: grid; grid-template-columns: auto 1fr; gap: 7px; padding: 11px; border: 1px solid #e0e6ec; border-radius: 4px; background: #fff; }
+.question-variant:has(input:checked) { border-color: #7e9bb9; box-shadow: inset 0 3px var(--brand-yellow); }
+.question-variant span { color: #52657a; font-size: 11px; font-weight: 600; }
+.question-variant textarea { grid-column: 1 / -1; min-height: 92px; padding: 9px; border: 1px solid #e0e6ec; border-radius: 3px; color: #304a66; background: #fff; font: inherit; font-size: 12px; line-height: 1.7; resize: vertical; }
+.questionnaire-export { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.questionnaire-export > div:last-child { display: flex; gap: 10px; white-space: nowrap; }
+.questionnaire-export .run-btn { width: auto; margin: 0; }
+@media (max-width: 900px) { .question-variants { grid-template-columns: 1fr; }.questionnaire-result-head,.questionnaire-export { align-items: flex-start; flex-direction: column; }.questionnaire-export > div:last-child { width: 100%; }.questionnaire-export button { flex: 1; } }
+@media (max-width: 600px) { .questionnaire-source-actions { align-items: stretch; flex-direction: column; }.questionnaire-source-actions > * { width: 100%!important; text-align: center; }.question-card-head { grid-template-columns: 1fr auto; }.question-card-head .mini-btn { grid-column: 1 / -1; }.questionnaire-results .result-toolbar { flex-direction: column; } }
+
 .indicator-page { max-width: 1680px; padding-inline: clamp(16px, 1.25vw, 32px); }
 .indicator-workspace { display: flex; flex-direction: column; align-items: stretch; }
 .indicator-workspace .work-panel { min-width: 0; padding: 18px; }
