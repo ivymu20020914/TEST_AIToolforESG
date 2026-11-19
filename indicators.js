@@ -18,6 +18,7 @@ function loadIndicators() {
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   const dataPath = local ? './local_data/esg-indicators.json' : './data/esg-indicators.json';
   indicatorDataRequest ??= fetch(dataPath, { cache: 'no-cache' })
+    .then(response => !response.ok && local ? fetch('./data/esg-indicators.json', { cache: 'no-cache' }) : response)
     .then(response => {
       if (!response.ok) throw new Error('指标字典未加载');
       return response.json();
@@ -51,7 +52,7 @@ function renderIndicatorWorkspace() {
         <div class="hint">常规项每次自动纳入。GRI、IFRS S1/S2、VSME 为首批映射，请核对适用条件。行业适用性待业务确认。</div>
       </form>
       <section class="work-panel result-panel">
-        <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
+        <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn" type="button" data-export="questionnaire" disabled>生成问卷</button><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
         <p role="status">选择对标要求，或直接生成仅含常规项的指标表。</p>
         <div class="indicator-filter indicator-search">
           <label for="indicatorSearch">搜索指标</label>
@@ -86,6 +87,7 @@ function renderIndicatorWorkspace() {
   const status = workspace.querySelector('[role="status"]');
   const download = workspace.querySelector('[data-export=csv]');
   const excelDownload = workspace.querySelector('[data-export=xlsx]');
+  const questionnaireDownload = workspace.querySelector('[data-export=questionnaire]');
   const preview = workspace.querySelector('.indicator-preview');
   const search = workspace.querySelector('#indicatorSearch');
   const searchCount = workspace.querySelector('.indicator-search-count');
@@ -150,7 +152,7 @@ function renderIndicatorWorkspace() {
     const values = new FormData(form);
     const selected = values.getAll('standard');
     const company = values.get('company').trim() || '公司';
-    run.disabled = download.disabled = excelDownload.disabled = search.disabled = dimensionFilter.disabled = topicFilter.disabled = typeFilter.disabled = true;
+    run.disabled = download.disabled = excelDownload.disabled = questionnaireDownload.disabled = search.disabled = dimensionFilter.disabled = topicFilter.disabled = typeFilter.disabled = true;
     filterCount.textContent = searchCount.textContent = '';
     preview.replaceChildren();
     status.textContent = '正在读取指标字典…';
@@ -167,7 +169,7 @@ function renderIndicatorWorkspace() {
           definition: fillCompany(item.definition, company)
         }));
       refreshExportSelection = renderIndicatorRows(preview, displayed, company, count => {
-        download.disabled = excelDownload.disabled = count === 0;
+        download.disabled = excelDownload.disabled = questionnaireDownload.disabled = count === 0;
         download.textContent = `下载 CSV（${count} 条）`;
         excelDownload.textContent = `下载 Excel（${count} 条）`;
       });
@@ -183,12 +185,15 @@ function renderIndicatorWorkspace() {
     }
   });
 
-  for (const button of [download, excelDownload]) {
+  for (const button of [download, excelDownload, questionnaireDownload]) {
     button.addEventListener('click', () => {
       const selected = filteredItems.filter(item => item.includeInExport);
       if (!selected.length) return;
       if (button === excelDownload) downloadIndicatorExcel(selected);
-      else downloadIndicatorCsv(selected);
+      else if (button === questionnaireDownload) {
+        sessionStorage.setItem('questionnaireIndicators', JSON.stringify(selected.map(item => Object.fromEntries(indicatorColumns.map(([key]) => [key, item[key] ?? ''])))));
+        location.hash = '#/questionnaire';
+      } else downloadIndicatorCsv(selected);
     });
   }
 }
