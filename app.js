@@ -6,7 +6,7 @@ const tools = [
   { id: 'word', englishTitle: 'Word Formatting', icon: 'W', title: 'Word 格式转换', desc: '把原始材料整理为规范的报告结构与统一格式。', tag: '文档处理', color: '#4269c9', tint: '#e9effc' },
   { id: 'ppt', englishTitle: 'Presentation Builder', icon: 'P', title: 'PPT 模板生成', desc: '根据主题与受众，生成可编辑的汇报结构和示例页面。', tag: '内容生成', color: '#d27836', tint: '#fff0e4' },
   { id: 'assistant', englishTitle: 'Professional AI Assistant', icon: '✦', title: '专业 AI 助手', desc: '使用团队预设的专业方法与表达规范进行问答。', tag: '智能问答', color: '#7a56cb', tint: '#f1eaff' },
-  { id: 'projects', englishTitle: 'Projects & Team Knowledge', icon: '◇', title: '项目空间 / 团队记忆', desc: '按项目沉淀共识、模板和已确认的团队知识。', tag: '团队协作', color: '#c45c76', tint: '#fdebf0' }
+  { id: 'projects', englishTitle: 'Project Management', icon: '◇', title: '项目管理', desc: '集中管理项目、任务、关键节点、成员分工与可复用模板。', tag: '团队协作', color: '#c45c76', tint: '#fdebf0' }
 ];
 
 const configs = {
@@ -29,18 +29,17 @@ function route() {
   document.querySelector('.sidebar').classList.remove('open');
   const id = location.hash.replace('#/', '') || 'home';
   document.querySelectorAll('[data-route-link]').forEach(el => el.classList.toggle('active', el.dataset.routeLink === id || (id !== 'home' && id !== 'projects' && el.dataset.routeLink === 'home')));
-  if (id === 'projects') { location.hash = '#/home'; return; }
-  if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (id === 'questionnaire') renderQuestionnaireWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
+  if (id === 'home') renderHome(); else if (id === 'indicators') renderIndicatorWorkspace(); else if (id === 'questionnaire') renderQuestionnaireWorkspace(); else if (id === 'projects') renderProjectManagementWorkspace(); else if (configs[id]) renderWorkspace(id); else location.hash = '#/home';
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 function renderHome() {
   document.querySelector('#pageCrumb').textContent = '工具中心';
   app.replaceChildren(homeTemplate.content.cloneNode(true));
-  renderToolCards(tools.filter(tool => tool.id !== 'projects'));
+  renderToolCards(tools);
   document.querySelector('#toolSearch').addEventListener('input', event => {
     const key = event.target.value.trim().toLowerCase();
-    renderToolCards(tools.filter(tool => tool.id !== 'projects').filter(tool => `${tool.title}${tool.englishTitle}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
+    renderToolCards(tools.filter(tool => `${tool.title}${tool.englishTitle}${tool.desc}${tool.tag}`.toLowerCase().includes(key)));
   });
 }
 
@@ -51,7 +50,7 @@ function renderToolCards(items) {
     <button class="tool-card${['indicators','questionnaire'].includes(tool.id) ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
       <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${['indicators','questionnaire'].includes(tool.id) ? '可试用' : '开发中'}</span></span>
       <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><span class="tool-title-en" lang="en">${tool.englishTitle}</span><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
-      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : tool.id === 'questionnaire' ? '本机解析 · 编辑选择 · Word / Excel 导出' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
+      <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : tool.id === 'questionnaire' ? '本机解析 · 编辑选择 · Word / Excel 导出' : tool.id === 'projects' ? '项目组合 · 任务 · 节点 · 模板' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
 }
 
