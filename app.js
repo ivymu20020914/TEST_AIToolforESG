@@ -48,7 +48,7 @@ function renderToolCards(items) {
   if (!items.length) { grid.innerHTML = '<div class="empty-search">没有找到匹配的工具，试试“研究”或“文档”。</div>'; return; }
   grid.innerHTML = items.map(tool => `
     <button class="tool-card${['indicators','questionnaire'].includes(tool.id) ? ' tool-card-ready' : ''}" type="button" data-route="${tool.id}" style="--card-color:${tool.color};--card-tint:${tool.tint}">
-      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${['indicators','questionnaire'].includes(tool.id) ? '可试用' : '开发中'}</span></span>
+      <span class="tool-card-top"><span class="tool-category">${tool.tag}</span><span class="tool-availability">${['indicators','questionnaire','projects'].includes(tool.id) ? '可试用' : '开发中'}</span></span>
       <span class="tool-card-body"><span class="tool-card-copy"><span class="tool-number">${String(tools.indexOf(tool) + 1).padStart(2, '0')}</span><h3>${tool.title}</h3><span class="tool-title-en" lang="en">${tool.englishTitle}</span><p>${tool.desc}</p></span><span class="tool-art" aria-hidden="true">${toolArt(tool.id)}</span></span>
       <span class="tool-meta"><span>${tool.id === 'indicators' ? '选择标准 · 编辑口径 · 导出指标' : tool.id === 'questionnaire' ? '本机解析 · 编辑选择 · Word / Excel 导出' : tool.id === 'projects' ? '项目组合 · 任务 · 节点 · 模板' : '开发中 · 可查看界面演示'}</span><strong aria-hidden="true">↗</strong></span>
     </button>`).join('');
