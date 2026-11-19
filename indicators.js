@@ -52,7 +52,7 @@ function renderIndicatorWorkspace() {
         <div class="hint">常规项每次自动纳入。GRI、IFRS S1/S2、VSME 为首批映射，请核对适用条件。行业适用性待业务确认。</div>
       </form>
       <section class="work-panel result-panel">
-        <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn" type="button" data-export="questionnaire" disabled>生成问卷</button><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
+        <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn questionnaire-generate-btn" type="button" data-export="questionnaire" disabled>生成问卷</button><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
         <p role="status">选择对标要求，或直接生成仅含常规项的指标表。</p>
         <div class="indicator-filter indicator-search">
           <label for="indicatorSearch">搜索指标</label>
