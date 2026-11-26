@@ -551,3 +551,8 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .6;
 .indicator-workspace > form .indicator-options { grid-row:5; }
 .indicator-guidance { white-space:pre-line; color:#75663b; font-size:11px; line-height:1.8; margin:8px 0; }
 @media(max-width:600px){.indicator-workspace > form .run-btn {grid-row:6;}}
+
+.specialty-options { grid-column:1 / -1; grid-row:4; margin:0; padding:12px; border:1px solid var(--line); font-size:12px; }
+.specialty-options legend { color:var(--muted); }
+.specialty-options label { display:inline-flex; gap:6px; align-items:center; margin:6px 18px 6px 0; }
+.specialty-options input { accent-color:#8c7125; }

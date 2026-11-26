@@ -1,7 +1,7 @@
 """Contiguous presentation IDs; immutable source IDs remain separately traceable."""
 import copy,json,hashlib
 from pathlib import Path
-VERSION='2026-11-26-r8'
+VERSION='2026-11-26-r9'
 def renumber(items):
     result=copy.deepcopy(items)
     for n,i in enumerate(result,1):

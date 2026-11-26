@@ -1,7 +1,7 @@
 """Versioned structural enrichment; similarity produces candidates, never automatic merges."""
 import json,re,difflib,hashlib
 from pathlib import Path
-VERSION='2026-11-26-r8'
+VERSION='2026-11-26-r9'
 BASE={'ESG-0355','ESG-0381','ESG-0382'}
 
 def enrich(items):

@@ -1,4 +1,4 @@
-const indicatorDictionaryVersion = '2026-11-26-r8';
+const indicatorDictionaryVersion = '2026-11-26-r9';
 
 const indicatorStandards = {
   hkex_gem_c2: '港交所 GEM C2（提供PDF·部分映射）',
@@ -45,16 +45,16 @@ function renderIndicatorWorkspace() {
       <form class="work-panel">
         <h2>生成条件</h2>
         <div class="field"><label for="indicatorCompany">公司名称（选填）</label><input id="indicatorCompany" name="company" placeholder="默认使用「公司」" /></div>
-        <div class="field"><label for="indicatorIndustry">行业适用性</label><select id="indicatorIndustry" name="industry"><option value="">未选择（须确认适用性）</option>制造</option><option>金融</option><option>服务</option></select></div><label class="indicator-expand"><input type="checkbox" name="expand" /> 显示全库扩展候选（非默认必填）</label><fieldset class="indicator-options">
+        <div class="field"><label for="indicatorIndustry">行业适用性</label><select id="indicatorIndustry" name="industry"><option value="">未选择（须确认适用性）</option>制造</option><option>金融</option><option>服务</option></select></div><fieldset class="specialty-options"><legend>行业／业务专项（按需追加）</legend>${['气候与资源专项','供应链专项','产品与研发专项','职业健康安全专项','员工细分专项','治理与经营专项','其他业务专项'].map(name => `<label><input type="checkbox" name="specialty" value="${name}" /> ${name}</label>`).join('')}</fieldset><fieldset class="indicator-options">
           <legend>对标要求（可多选）</legend>
           ${Object.entries(indicatorStandards).map(([id, label]) => `<label><input type="checkbox" name="standard" value="${id}" /> ${label}</label>`).join('')}
         </fieldset>
         <button class="run-btn" type="submit">生成指标表</button>
-        <div class="hint">基础候选由独立清单管理（暂仅员工总数及性别人数，待业务审核，非港交所条款认定）。其余按标准追加；适用性未确认项默认不勾选。港交所GEM C2已初核21项，未完整覆盖；仅适用于提供的GEM文件。A股电子规范待核对。</div>
+        <div class="hint">基础项默认纳入；按所选标准追加对标项，按行业或业务主题追加专项。生成结果默认全选，可人工取消；内部待核对项不进入客户表。基础项是业务通用清单，不等于交易所强制披露清单。</div>
       </form>
       <section class="work-panel result-panel">
         <div class="result-toolbar"><h2>指标表预览</h2><div class="indicator-downloads"><button class="mini-btn questionnaire-generate-btn" type="button" data-export="questionnaire" disabled>生成问卷</button><button class="mini-btn" type="button" data-export="csv" disabled>下载 CSV</button><button class="mini-btn excel-btn" type="button" data-export="xlsx" disabled>下载 Excel</button></div></div>
-        <p role="status">选择对标要求，或直接生成仅含常规项的指标表。</p>
+        <p role="status">选择对标要求，或直接生成基础指标表。</p>
         <div class="indicator-filter indicator-search">
           <label for="indicatorSearch">搜索指标</label>
           <input id="indicatorSearch" type="search" placeholder="输入指标名称、编号或议题" disabled />
@@ -159,16 +159,22 @@ function renderIndicatorWorkspace() {
     status.textContent = '正在读取指标字典…';
     try {
       const dictionary = await loadIndicators();
+      const industry = values.get('industry');
+      const modules = new Set(values.getAll('specialty'));
+      if (industry === '制造') ['产品与研发专项','职业健康安全专项','气候与资源专项','供应链专项'].forEach(name => modules.add(name));
+      const chosenClass = item => item.isBase ? '基础项' : item.standards.some(key => selected.includes(key)) ? '对标追加项' : '行业专项项';
       displayed = dictionary
-        .filter(item => values.has('expand') || item.isBase || item.standards.some(key => selected.includes(key)))
-        .filter(item => !item.excludedIndustries?.includes(values.get('industry')))
-        .filter(item => !item.name.includes('核算方法待明确') || values.has('expand'))
+        .filter(item => !item.internalReview)
+        .filter(item => item.isBase || item.standards.some(key => selected.includes(key)) || modules.has(item.specialtyModule))
+        .filter(item => !item.excludedIndustries?.includes(industry))
         .map(item => ({
           ...item,
-          includeInExport: !!item.isBase,
+          includeInExport: true,
+          inclusionClass: chosenClass(item),
+          applicability: chosenClass(item),
           selectedStandards: selected,
           standardReference: indicatorStandardReference(item, selected),
-          matched: item.standards.filter(key => selected.includes(key)).map(key => indicatorStandards[key]).join('、') || (item.isBase ? '基础候选（业务整理待审）' : '扩展候选（待确认）'),
+          matched: chosenClass(item) + (item.standards.some(key => selected.includes(key)) ? ' · ' + item.standards.filter(key => selected.includes(key)).map(key => indicatorStandards[key]).join('、') : (item.isBase ? '' : ' · ' + item.specialtyModule)),
           definition: fillCompany(item.definition, company)
         }));
       refreshExportSelection = renderIndicatorRows(preview, displayed, company, count => {
@@ -180,7 +186,7 @@ function renderIndicatorWorkspace() {
       updateTopicOptions();
       filterPreview();
       const commonCount = displayed.filter(item => item.isBase).length;
-      status.textContent = `共 ${displayed.length} 条，基础候选 ${commonCount} 条，标准或扩展候选 ${displayed.length - commonCount} 条。字典版本 ${indicatorDictionaryVersion}（全库 ${dictionary.length} 条）。`;
+      status.textContent = `共 ${displayed.length} 条，基础项 ${commonCount} 条，对标追加项 ${displayed.filter(i => i.inclusionClass === '对标追加项').length} 条，行业专项项 ${displayed.filter(i => i.inclusionClass === '行业专项项').length} 条。字典版本 ${indicatorDictionaryVersion}（全库 ${dictionary.length} 条）。`;
     } catch {
       status.textContent = '指标字典加载失败，请刷新页面后重试。';
     } finally {
@@ -240,7 +246,7 @@ const indicatorColumns = [
   ['id', '指标编号'], ['type', '数据类型'], ['dimension', '维度'],
   ['topic', '议题'], ['level3', '三级指标组'], ['name', '指标名称'],
   ['unit', '单位'], ['definition', '定义与统计口径'],
-  ['matched', '本次纳入依据'], ['applicability', '适用性状态'], ['guidance', '填报说明'], ['ageBoundaryNote', '统计边界提示'], ['level1', '一级维度'], ['level2', '二级议题'], ['level4', '四级具体指标']
+  ['matched', '本次纳入依据'], ['applicability', '适用性状态'], ['guidance', '填报说明'], ['ageBoundaryNote', '统计边界提示']
 ];
 const previewColumns = indicatorColumns.filter(([key]) => ['type', 'name', 'unit', 'definition', 'matched'].includes(key));
 

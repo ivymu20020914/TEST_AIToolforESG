@@ -9,6 +9,7 @@ from openpyxl import load_workbook
 from merge_indicators import merge_indicators
 from enrich_indicators import enrich
 from renumber_indicators import renumber
+from classify_indicators import classify
 from map_hkex_c2 import apply as apply_c2
 
 
@@ -140,7 +141,7 @@ def main():
     args = parser.parse_args()
     target = Path(__file__).resolve().parents[1] / 'local_data' / 'esg-indicators.json'
     indicators = apply_c2(enrich(merge_indicators(import_dictionary(args.workbook))))
-    indicators = renumber(indicators)
+    indicators = classify(renumber(indicators))
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_suffix('.tmp')
     temporary.write_text(json.dumps(indicators, ensure_ascii=False), encoding='utf-8')
@@ -193,7 +194,7 @@ def main():
             })
         public_target = target.parent.parent / 'data' / 'esg-indicators.json'
         public_target.parent.mkdir(parents=True, exist_ok=True)
-        public_items = renumber(enrich(public_items))
+        public_items = classify(renumber(enrich(public_items)))
         public_target.write_text(json.dumps(public_items, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print(f'已导入 {len(indicators)} 条指标')
 
