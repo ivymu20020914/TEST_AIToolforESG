@@ -1,4 +1,4 @@
-const indicatorDictionaryVersion = '2026-11-26-r6';
+const indicatorDictionaryVersion = '2026-11-26-r7';
 
 const indicatorStandards = {
   hkex_gem_c2: '港交所 GEM C2（提供PDF·部分映射）',
@@ -119,7 +119,7 @@ function renderIndicatorWorkspace() {
     preview.querySelectorAll('tbody tr').forEach((row, index) => {
       const item = displayed[index];
       const found = item.matchesFilters
-        && (!query || [item.id, item.name, item.topic].some(value => value?.toLowerCase().includes(query)));
+        && (!query || [item.id, item.legacyId, item.name, item.topic].some(value => value?.toLowerCase().includes(query)));
       row.hidden = !found;
       if (found) matches++;
     });
@@ -294,6 +294,7 @@ function renderIndicatorRows(preview, items, company, onExportCount) {
         const identifier = document.createElement('small');
         identifier.className = 'indicator-id';
         identifier.textContent = item.id;
+        identifier.title = '原编号：' + (item.legacyId || item.id);
         cell.append(identifier);
       }
     }

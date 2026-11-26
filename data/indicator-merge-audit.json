@@ -1,6 +1,6 @@
 [
   {
-    "target": "ESG-0002",
+    "target": "003",
     "name": "范围二温室气体排放量",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -16,10 +16,11 @@
         "id": "ESG-0024",
         "name": "范围二温室气体排放量（核算方法待明确）"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0002"
   },
   {
-    "target": "ESG-0087",
+    "target": "067",
     "name": "生化需氧量排放量",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -31,10 +32,11 @@
         "id": "ESG-0215",
         "name": "生化需氧量（BOD）"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0087"
   },
   {
-    "target": "ESG-0138",
+    "target": "094",
     "name": "环境管理体系与认证",
     "kind": "管理体系与认证统一收集",
     "members": [
@@ -50,10 +52,11 @@
         "id": "ESG-0139",
         "name": "环境管理体系认证"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0138"
   },
   {
-    "target": "ESG-0144",
+    "target": "098",
     "name": "环境监测",
     "kind": "监测与监测报告归并",
     "members": [
@@ -65,10 +68,11 @@
         "id": "ESG-0105",
         "name": "环境监测报告"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0144"
   },
   {
-    "target": "ESG-0156",
+    "target": "109",
     "name": "环境保护投入金额",
     "kind": "同一投入指标保留可选统计口径",
     "members": [
@@ -80,10 +84,11 @@
         "id": "ESG-0159",
         "name": "环保资金投入"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0156"
   },
   {
-    "target": "ESG-0240",
+    "target": "160",
     "name": "能源管理体系与认证",
     "kind": "管理体系与认证统一收集",
     "members": [
@@ -99,10 +104,11 @@
         "id": "ESG-0243",
         "name": "能源管理体系认证"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0240"
   },
   {
-    "target": "ESG-0325",
+    "target": "204",
     "name": "绿色包装",
     "kind": "总项与子项归并",
     "members": [
@@ -114,10 +120,11 @@
         "id": "ESG-0326",
         "name": "包装轻量化措施"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0325"
   },
   {
-    "target": "ESG-0350",
+    "target": "218",
     "name": "产品及服务安全质量重大事故损失金额",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -129,10 +136,11 @@
         "id": "ESG-0354",
         "name": "报告期内发生的产品相关的安全与质量重大责任事故损失金额"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0350"
   },
   {
-    "target": "ESG-0429",
+    "target": "222",
     "name": "质量管理体系与认证",
     "kind": "管理体系、实施举措与认证统一收集",
     "members": [
@@ -148,10 +156,11 @@
         "id": "ESG-0431",
         "name": "质量管理体系认证"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0429"
   },
   {
-    "target": "ESG-0470",
+    "target": "247",
     "name": "中国地区供应商数量",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -163,10 +172,11 @@
         "id": "ESG-0462",
         "name": "中国（港澳台）供应商数量"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0470"
   },
   {
-    "target": "ESG-0549",
+    "target": "314",
     "name": "童工、强制劳动管理",
     "kind": "总项与子项归并",
     "members": [
@@ -202,10 +212,11 @@
         "id": "ESG-0557",
         "name": "禁止限制员工人身自由"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0549"
   },
   {
-    "target": "ESG-0558",
+    "target": "315",
     "name": "保护未成年人",
     "kind": "总项与子项归并",
     "members": [
@@ -217,10 +228,11 @@
         "id": "ESG-0559",
         "name": "未成年工管理培训及宣导"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0558"
   },
   {
-    "target": "ESG-0560",
+    "target": "316",
     "name": "工作时间管理",
     "kind": "总项与子项归并",
     "members": [
@@ -236,10 +248,11 @@
         "id": "ESG-0562",
         "name": "工作时间举报机制"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0560"
   },
   {
-    "target": "ESG-0563",
+    "target": "317",
     "name": "薪酬管理",
     "kind": "总项与子项归并",
     "members": [
@@ -259,10 +272,11 @@
         "id": "ESG-0566",
         "name": "薪酬投诉机制"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0563"
   },
   {
-    "target": "ESG-0570",
+    "target": "320",
     "name": "实习生/学生工管理",
     "kind": "总项与子项归并",
     "members": [
@@ -278,10 +292,11 @@
         "id": "ESG-0574",
         "name": "实习生/学生工举报机制"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0570"
   },
   {
-    "target": "ESG-0594",
+    "target": "329",
     "name": "反歧视、反骚扰与反虐待管理",
     "kind": "相关管理项归并",
     "members": [
@@ -305,10 +320,11 @@
         "id": "ESG-0598",
         "name": "反歧视、反骚扰、反虐待培训和宣导"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0594"
   },
   {
-    "target": "ESG-0607",
+    "target": "330",
     "name": "结社自由与集体协商管理",
     "kind": "总项与子项归并",
     "members": [
@@ -324,10 +340,11 @@
         "id": "ESG-0612",
         "name": "结社自由与集体协商投诉机制"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0607"
   },
   {
-    "target": "ESG-0613",
+    "target": "332",
     "name": "申诉管理",
     "kind": "总项与子项归并",
     "members": [
@@ -343,10 +360,11 @@
         "id": "ESG-0615",
         "name": "申诉调查及纠正程序"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0613"
   },
   {
-    "target": "ESG-0392",
+    "target": "365",
     "name": "女性管理层员工人数",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -358,10 +376,11 @@
         "id": "ESG-0690",
         "name": "高级管理层女性员工人数"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0392"
   },
   {
-    "target": "ESG-0580",
+    "target": "379",
     "name": "报告期末30岁及以下员工人数",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -373,11 +392,12 @@
         "id": "ESG-0672",
         "name": "员工构成—年龄—30岁及以下员工人数"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0580"
   },
   {
-    "target": "ESG-0581",
-    "name": "30至50岁员工人数",
+    "target": "380",
+    "name": "员工构成—年龄—30至50岁员工人数",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
       {
@@ -388,10 +408,11 @@
         "id": "ESG-0384",
         "name": "员工构成—年龄—30到50岁"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0581"
   },
   {
-    "target": "ESG-0759",
+    "target": "452",
     "name": "客户服务培训参与人次",
     "kind": "同一培训参与人次同义归并",
     "members": [
@@ -403,10 +424,11 @@
         "id": "ESG-0763",
         "name": "客户服务培训覆盖人次"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0759"
   },
   {
-    "target": "ESG-0775",
+    "target": "464",
     "name": "知识产权保护体系与制度",
     "kind": "总项与子项归并",
     "members": [
@@ -422,10 +444,27 @@
         "id": "ESG-0777",
         "name": "知识产权违规纠正预防程序"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0775"
   },
   {
-    "target": "ESG-0862",
+    "target": "476",
+    "name": "行业标准制定参与数量（含主导）",
+    "kind": "用户确认同一行业标准参与数量归并",
+    "members": [
+      {
+        "id": "ESG-0789",
+        "name": "主导或参与行业标准制定数量"
+      },
+      {
+        "id": "ESG-0817",
+        "name": "参与行业标准制定数量"
+      }
+    ],
+    "legacyTarget": "ESG-0789"
+  },
+  {
+    "target": "520",
     "name": "职业健康安全管理体系与认证",
     "kind": "管理体系与认证统一收集",
     "members": [
@@ -441,10 +480,11 @@
         "id": "ESG-0864",
         "name": "安全生产相关制度"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0862"
   },
   {
-    "target": "ESG-0866",
+    "target": "522",
     "name": "风险识别结果及管控",
     "kind": "风险识别与管控归并",
     "members": [
@@ -456,10 +496,11 @@
         "id": "ESG-0867",
         "name": "风险控制措施"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0866"
   },
   {
-    "target": "ESG-0868",
+    "target": "523",
     "name": "突发事件应急准备和响应",
     "kind": "应急准备与演练归并",
     "members": [
@@ -471,10 +512,11 @@
         "id": "ESG-0869",
         "name": "职业健康与安全应急演练"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0868"
   },
   {
-    "target": "ESG-0887",
+    "target": "539",
     "name": "化学品安全管理",
     "kind": "相关管理项归并",
     "members": [
@@ -498,10 +540,11 @@
         "id": "ESG-0891",
         "name": "化学品管理培训与宣导"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0887"
   },
   {
-    "target": "ESG-0997",
+    "target": "605",
     "name": "ESG战略和方针",
     "kind": "战略与规划归并",
     "members": [
@@ -513,10 +556,11 @@
         "id": "ESG-0998",
         "name": "ESG战略的中长期规划"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-0997"
   },
   {
-    "target": "ESG-1003",
+    "target": "610",
     "name": "ESG风险管理",
     "kind": "标准风险管理流程归并",
     "members": [
@@ -528,10 +572,11 @@
         "id": "ESG-1207",
         "name": "可持续发展风险识别评估及监测流程"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1003"
   },
   {
-    "target": "ESG-1060",
+    "target": "664",
     "name": "反商业贿赂及反贪污管理体系",
     "kind": "体系与程序归并",
     "members": [
@@ -543,10 +588,11 @@
         "id": "ESG-1061",
         "name": "反商业贿赂及反贪污控制程序"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1060"
   },
   {
-    "target": "ESG-1065",
+    "target": "668",
     "name": "商业贿赂及贪污风险评估",
     "kind": "风险评估与证据归并",
     "members": [
@@ -558,10 +604,11 @@
         "id": "ESG-1066",
         "name": "贿赂风险识别和评价的证据"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1065"
   },
   {
-    "target": "ESG-1079",
+    "target": "681",
     "name": "反腐败培训董事参与规模",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -573,10 +620,11 @@
         "id": "ESG-1146",
         "name": "接受反商业贿赂及反贪污培训的董事总数"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1079"
   },
   {
-    "target": "ESG-1080",
+    "target": "682",
     "name": "反腐败培训管理层参与规模",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -588,10 +636,11 @@
         "id": "ESG-1148",
         "name": "接受反商业贿赂及反贪污培训的管理层总数"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1080"
   },
   {
-    "target": "ESG-1081",
+    "target": "683",
     "name": "反腐败培训员工参与规模",
     "kind": "用户确认归并；原统计边界保留为口径选项",
     "members": [
@@ -603,10 +652,11 @@
         "id": "ESG-1150",
         "name": "接受反商业贿赂及反贪污培训的员工总数"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1081"
   },
   {
-    "target": "ESG-1154",
+    "target": "733",
     "name": "数据安全与隐私管理措施",
     "kind": "总项与子项归并",
     "members": [
@@ -622,6 +672,7 @@
         "id": "ESG-1156",
         "name": "数据泄露事件纠正预防程序"
       }
-    ]
+    ],
+    "legacyTarget": "ESG-1154"
   }
 ]

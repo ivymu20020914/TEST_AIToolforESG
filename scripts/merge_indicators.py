@@ -6,6 +6,8 @@ from pathlib import Path
 
 def merge_indicators(items):
     items = copy.deepcopy(items)
+    for i in items:
+        i['id'] = i.get('legacyId', i['id'])
     index = {i['id']: i for i in items}
     removed = set()
     rules = json.loads(Path(__file__).with_name('indicator-merge-rules.json').read_text())

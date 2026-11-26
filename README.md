@@ -67,3 +67,7 @@ C2 PDF已取得并建立21个既有指标的GEM条款部分映射（见data/hkex
 
 ## 2026-11-26 r6 人工确认归并
 第一批8组获用户全部合并确认，吸收11条独立行，全库765条。完整规则及口径见scripts/indicator-merge-rules.json，原编号见data/indicator-merge-audit.json。未知年龄边界、BOD方法与地区范围仍须填报时确认。范围二可同时分别披露市场法及位置法，禁止相加。
+
+
+## 2026-11-26 r7 连续编号
+当前编号001至764按全库顺序生成，筛选不重编。legacyId和stableKey保留原始源编号，不能以显示编号替代源身份；data/indicator-id-map.json提供原编号及合并别名对应表。导出使用文本单元格保留前导零。更新原始字典后先合并、结构整理及标准映射，再执行scripts/renumber_indicators.py；不应直接用新编号运行基于原编号的业务规则。

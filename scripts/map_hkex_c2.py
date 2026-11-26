@@ -27,8 +27,8 @@ MAPPING={
 
 def apply(items):
  for i in items:
-  if i['id'] not in MAPPING:continue
-  ref,page,obligation,definition=MAPPING[i['id']]
+  if i.get('legacyId',i['id']) not in MAPPING:continue
+  ref,page,obligation,definition=MAPPING[i.get('legacyId',i['id'])]
   i['standards']=list(dict.fromkeys(i['standards']+['hkex_gem_c2']))
   i['hkexReference']=ref;i['hkexObligation']=obligation
   source={'standard':'hkex_gem_c2','name':'港交所GEM附录C2','version':'用户提供PDF，文件版本号VER38252（未据此确认当前有效版本）','reference':f'GEM附录C2 {ref}；PDF第{page}页','condition':obligation+'；仅对应用户提供GEM文件，按上市板块、报告年度及业务范围确认','status':'条款对应初核，非完整覆盖；单一指标可能仅覆盖条款部分要求','originalLabel':definition}
@@ -41,5 +41,5 @@ if __name__=='__main__':
   p=ROOT/folder/'esg-indicators.json'
   if not p.exists():continue
   items=apply(json.loads(p.read_text()));p.write_text(json.dumps(items,ensure_ascii=False,separators=(',',':')))
-  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r6','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
+  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r7','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
  (ROOT/'data/hkex-c2-coverage.json').write_text(json.dumps({'source':'HKEXCN_SC_8299_VER38252.pdf','market':'GEM','scope':'21个已有指标的条款对应初核，未覆盖全部C2要求','important':['A1.2已删除，不作为现行碳排放条款','D16自愿披露；D17要求范围一、二及相关计量披露','文件当前有效版本与适用年度尚未独立核实'],'mappedIds':list(MAPPING),'pending':'其余C部分、B14/15及D部分详细覆盖仍待逐项补齐'},ensure_ascii=False,indent=2))
