@@ -1,11 +1,12 @@
 """Versioned structural enrichment; similarity produces candidates, never automatic merges."""
 import json,re,difflib,hashlib
 from pathlib import Path
-VERSION='2026-11-26-r5'
+VERSION='2026-11-26-r6'
 BASE={'ESG-0355','ESG-0381','ESG-0382'}
 
 def enrich(items):
  for i in items:
+  i['name'] = {'ESG-0752':'基层员工人均职业发展培训时长','ESG-0756':'基层员工定期绩效与职业发展考核覆盖率'}.get(i['id'],i['name'])
   n=i['name']; raw=i.get('category') or '';topic=(i.get('topic') or '待分类').split('|')[0].strip()
   topic = '应对气候变化' if i.get('dimension') == '环境' and re.search('温室气体|范围[一二三123]|碳排放', n) else topic
   group=raw.split('|')[0].strip() or topic+'综合指标'
@@ -52,5 +53,5 @@ if __name__=='__main__':
    normalize=lambda n:re.sub(r'周岁','岁',re.sub(r'[\s（）()]','',n))
    score=difflib.SequenceMatcher(None,normalize(i['name']),normalize(j['name'])).ratio()
    if score>=.82:candidates.append({'a':i['id'],'nameA':i['name'],'b':j['id'],'nameB':j['name'],'similarity':round(score,3),'decision':'仅候选，须比较对象、范围、边界和计量方式；未自动合并'})
- (root/'data/indicator-review-queue.json').write_text(json.dumps({'version':VERSION,'pendingSources':['港交所C2准确文件与版本','金融行业电子规范底稿','HIESG资料授权与版本'],'candidates':candidates},ensure_ascii=False,indent=2))
+ (root/'data/indicator-review-queue.json').write_text(json.dumps({'version':VERSION,'pendingSources':['GEM C2剩余条款覆盖与报告年度适用性复核','金融行业电子规范底稿','HIESG资料授权与版本'],'candidates':candidates},ensure_ascii=False,indent=2))
  print(len(items),len(candidates))

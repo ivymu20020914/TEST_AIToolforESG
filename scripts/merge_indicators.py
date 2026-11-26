@@ -19,6 +19,7 @@ def merge_indicators(items):
         group = [target, *members]
         assert len({i['type'] for i in group}) == 1
         target['alwaysInclude'] = any(i.get('alwaysInclude') or not i['standards'] for i in group)
+        target['isBase'] = any(i.get('isBase', False) for i in group)
         target['standards'] = list(dict.fromkeys(s for i in group for s in i['standards']))
         details = [v for i in group for v in (i.get('mergeDetails') or [{'id': i['id'], 'name': i['name']}])]
         target['mergeDetails'] = list({v['id']: v for v in details}.values())
@@ -35,10 +36,10 @@ def merge_indicators(items):
         if rule.get('options'):
             target['variants'] = rule['options'] + target.get('variants', [])
             target['definition'] = rule['options'][0]['definition']
-            target['note'] = '可选口径：环保投入总额、环保设施运营成本（含折旧）'
+            target['note'] = '可选口径：' + '、'.join(v['label'] for v in rule['options'])
         target['note'] = '\n'.join(dict.fromkeys(i['note'] for i in group if i.get('note')))
         if rule.get('options'):
-            target['note'] += '\n可选口径：环保投入总额、环保设施运营成本（含折旧）'
+            target['note'] += '\n可选口径：' + '、'.join(v['label'] for v in rule['options'])
         if rule.get('name'):
             target['name'] = rule['name']
         removed.update(i['id'] for i in members)

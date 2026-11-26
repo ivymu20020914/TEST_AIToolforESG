@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 MAPPING={
  'ESG-0001':('D.28(a)、29',17,'强制披露','范围一排放量及其计量方法、输入资料、假设和变更。'),
- 'ESG-0003':('D.28(b)、29(c)',17,'强制披露','以地域为基准的范围二排放及相关合约文书信息。'),
+ 'ESG-0002':('D.28(b)、29(c)',17,'强制披露','以地域为基准的范围二排放及相关合约文书信息。'),
  'ESG-0004':('D.28(c)、29(d)',17,'自愿披露（GEM第16段）','范围三排放量及纳入核算的类别。'),
  'ESG-0068':('A1.3',5,'不遵守就解释','有害废弃物产生总量（吨）及适用时的密度。'),
  'ESG-0069':('A1.4',5,'不遵守就解释','无害废弃物产生总量（吨）及适用时的密度。'),
@@ -41,5 +41,5 @@ if __name__=='__main__':
   p=ROOT/folder/'esg-indicators.json'
   if not p.exists():continue
   items=apply(json.loads(p.read_text()));p.write_text(json.dumps(items,ensure_ascii=False,separators=(',',':')))
-  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r5','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
+  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r6','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
  (ROOT/'data/hkex-c2-coverage.json').write_text(json.dumps({'source':'HKEXCN_SC_8299_VER38252.pdf','market':'GEM','scope':'21个已有指标的条款对应初核，未覆盖全部C2要求','important':['A1.2已删除，不作为现行碳排放条款','D16自愿披露；D17要求范围一、二及相关计量披露','文件当前有效版本与适用年度尚未独立核实'],'mappedIds':list(MAPPING),'pending':'其余C部分、B14/15及D部分详细覆盖仍待逐项补齐'},ensure_ascii=False,indent=2))
