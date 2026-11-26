@@ -1,4 +1,4 @@
-const indicatorDictionaryVersion = '2026-11-26-r7';
+const indicatorDictionaryVersion = '2026-11-26-r8';
 
 const indicatorStandards = {
   hkex_gem_c2: '港交所 GEM C2（提供PDF·部分映射）',
