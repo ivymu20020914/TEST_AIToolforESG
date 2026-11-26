@@ -556,3 +556,5 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .6;
 .specialty-options legend { color:var(--muted); }
 .specialty-options label { display:inline-flex; gap:6px; align-items:center; margin:6px 18px 6px 0; }
 .specialty-options input { accent-color:#8c7125; }
+
+.indicator-origin { font-size:11px; line-height:1.7; color:#687e91; white-space:pre-line; margin-top:8px; }

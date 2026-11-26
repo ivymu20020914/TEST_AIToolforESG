@@ -2,7 +2,7 @@
 function downloadIndicatorExcel(items) {
   const rows = [indicatorColumns.map(([, label]) => label),
     ...items.map(item => indicatorColumns.map(([key]) => item[key]))];
-  const widths = indicatorColumns.map(([key]) => ({id:17,type:12,dimension:15,topic:24,level3:28,name:42,unit:23,definition:70,matched:30,applicability:24,guidance:60,ageBoundaryNote:45,level1:15,level2:24,level4:42}[key] || 28));
+  const widths = indicatorColumns.map(([key]) => ({id:17,type:12,dimension:15,topic:24,level3:28,name:42,unit:23,definition:70,matched:30,sourceInfo:50,applicability:24,guidance:60,ageBoundaryNote:45,level1:15,level2:24,level4:42}[key] || 28));
   const xml = value => String(value ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '')
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
   const columnName = index => {

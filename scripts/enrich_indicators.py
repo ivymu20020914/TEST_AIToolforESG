@@ -1,13 +1,14 @@
 """Versioned structural enrichment; similarity produces candidates, never automatic merges."""
 import json,re,difflib,hashlib
 from pathlib import Path
-VERSION='2026-11-26-r9'
+VERSION='2026-11-26-r10'
 BASE={'ESG-0355','ESG-0381','ESG-0382'}
 
 def enrich(items):
  for i in items:
   i['id']=i.get('legacyId',i['id'])
   i['name'] = {'ESG-0752':'基层员工人均职业发展培训时长','ESG-0756':'基层员工定期绩效与职业发展考核覆盖率'}.get(i['id'],i['name'])
+  i['name']=i['name'].replace('认证的的','认证的')
   n=i['name']; raw=i.get('category') or '';topic=(i.get('topic') or '待分类').split('|')[0].strip()
   topic = '应对气候变化' if i.get('dimension') == '环境' and re.search('温室气体|范围[一二三123]|碳排放', n) else topic
   group=raw.split('|')[0].strip() or topic+'综合指标'

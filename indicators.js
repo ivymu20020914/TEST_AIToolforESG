@@ -1,4 +1,4 @@
-const indicatorDictionaryVersion = '2026-11-26-r9';
+const indicatorDictionaryVersion = '2026-11-26-r10';
 
 const indicatorStandards = {
   hkex_gem_c2: '港交所 GEM C2（提供PDF·部分映射）',
@@ -246,7 +246,7 @@ const indicatorColumns = [
   ['id', '指标编号'], ['type', '数据类型'], ['dimension', '维度'],
   ['topic', '议题'], ['level3', '三级指标组'], ['name', '指标名称'],
   ['unit', '单位'], ['definition', '定义与统计口径'],
-  ['matched', '本次纳入依据'], ['applicability', '适用性状态'], ['guidance', '填报说明'], ['ageBoundaryNote', '统计边界提示']
+  ['matched', '本次纳入依据'], ['sourceInfo', '指标来源'], ['applicability', '适用性状态'], ['guidance', '填报说明'], ['ageBoundaryNote', '统计边界提示']
 ];
 const previewColumns = indicatorColumns.filter(([key]) => ['type', 'name', 'unit', 'definition', 'matched'].includes(key));
 
@@ -302,6 +302,10 @@ function renderIndicatorRows(preview, items, company, onExportCount) {
         identifier.textContent = item.id;
         identifier.title = '原编号：' + (item.legacyId || item.id);
         cell.append(identifier);
+        const origin = document.createElement('div');
+        origin.className = 'indicator-origin';
+        origin.textContent = indicatorOrigin(item);
+        cell.append(origin);
       }
     }
     renderIndicatorDefinition(item, cells, company);
@@ -350,7 +354,7 @@ function renderIndicatorDefinition(item, cells, company) {
     const detail = fillCompany(variant.definition, company);
     const scope = variant.note?.startsWith('可选口径：') ? variant.note.slice(5) : detail;
     return { unit: variant.unit, scope, definition: detail || scope,
-      standard: variant.standard, reference: variant.reference };
+      standard: variant.standard, reference: variant.reference, publicScope: variant.publicScope };
   }) : [{ unit: item.unit, definition: item.definition }];
   if (item.mergeDetails?.length) {
     const merged = document.createElement('details');
@@ -397,7 +401,9 @@ function renderIndicatorDefinition(item, cells, company) {
     item.definition = [active.definition, !active.edited && item.collectionRequirements ? '合并收集要求（非标准原文）：' + item.collectionRequirements : ''].filter(Boolean).join('\n\n');
     cells.unit.textContent = item.unit || '—';
     input.value = item.definition || '';
-    item.scopeSource = active.standard ? standardReferenceLabel(active.standard, active.reference) : (active.publicScope ? '通用整理口径' : '待补充');
+    const basis = active.standard ? standardReferenceLabel(active.standard, active.reference) : (active.publicScope ? '通用整理口径（非标准原文）' : '未标注口径依据');
+    item.scopeSource = active.edited ? '项目经理修改；原依据：' + basis : basis;
+    item.sourceInfo = indicatorOrigin(item) + '\n当前口径依据：' + item.scopeSource;
     scopeSource.textContent = active.standard ? `依据 ${item.scopeSource} 整理，可编辑` : '';
     showDefinition();
   }
@@ -420,11 +426,19 @@ function renderIndicatorDefinition(item, cells, company) {
   input.addEventListener('input', () => {
     item.definition = active.definition = input.value;
     active.edited = true;
-    item.scopeSource = '用户修改';
+    item.scopeSource = '项目经理修改';
+    item.sourceInfo = indicatorOrigin(item) + '\n当前口径依据：项目经理修改；原依据：' + (active.standard ? standardReferenceLabel(active.standard, active.reference) : active.publicScope ? '通用整理口径' : '未标注');
     scopeSource.textContent = '项目经理已修改，请复核';
     showDefinition();
   });
   applyScope();
+}
+
+function indicatorOrigin(item) {
+  const labels = (item.standards || []).map(key => indicatorStandards[key] || key);
+  const refs = [...new Set((item.standardSources || []).map(s => standardReferenceLabel(s.standard, s.reference)))];
+  return [labels.length ? '对标标签：' + labels.join('、') : '通用指标字典（未标注对标标准）',
+    refs.length ? '条款依据：' + refs.join('；') : (labels.length ? '尚无条款级出处，标签不代表口径已核对' : '')].filter(Boolean).join('\n');
 }
 
 function csvCell(value) {

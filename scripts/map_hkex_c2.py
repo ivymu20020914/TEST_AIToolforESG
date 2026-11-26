@@ -41,5 +41,5 @@ if __name__=='__main__':
   p=ROOT/folder/'esg-indicators.json'
   if not p.exists():continue
   items=apply(json.loads(p.read_text()));p.write_text(json.dumps(items,ensure_ascii=False,separators=(',',':')))
-  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r9','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
+  (p.parent/'indicator-version.json').write_text(json.dumps({'version':'2026-11-26-r10','count':len(items),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()},ensure_ascii=False))
  (ROOT/'data/hkex-c2-coverage.json').write_text(json.dumps({'source':'HKEXCN_SC_8299_VER38252.pdf','market':'GEM','scope':'21个已有指标的条款对应初核，未覆盖全部C2要求','important':['A1.2已删除，不作为现行碳排放条款','D16自愿披露；D17要求范围一、二及相关计量披露','文件当前有效版本与适用年度尚未独立核实'],'mappedIds':list(MAPPING),'pending':'其余C部分、B14/15及D部分详细覆盖仍待逐项补齐'},ensure_ascii=False,indent=2))
