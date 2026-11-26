@@ -545,3 +545,9 @@ button:disabled, input:disabled, select:disabled { cursor: default; opacity: .6;
 .excel-btn { background: var(--primary); color: #fff; border-color: var(--primary); }
 .excel-btn:not(:disabled):hover { background: var(--primary-dark); color: #fff; }
 @media (max-width: 600px) { .indicator-workspace .result-toolbar { align-items: flex-start; gap: 14px; flex-direction: column; } .indicator-downloads { justify-content: flex-start; } }
+
+.indicator-workspace > form .field:nth-of-type(2) { grid-row: 3; }
+.indicator-workspace > form .indicator-expand { grid-column: 1 / -1; grid-row:4; font-size:12px; color:var(--muted); }
+.indicator-workspace > form .indicator-options { grid-row:5; }
+.indicator-guidance { white-space:pre-line; color:#75663b; font-size:11px; line-height:1.8; margin:8px 0; }
+@media(max-width:600px){.indicator-workspace > form .run-btn {grid-row:6;}}

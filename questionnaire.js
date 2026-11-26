@@ -90,7 +90,7 @@ function parseQuestionnaireCsv(text) {
 
 function rowsToQuestionnaireIndicators(rows) {
   if (rows.length < 2) return [];
-  const aliases = { id: ['指标编号','编号','ID'], type: ['数据类型','类型'], dimension: ['维度'], topic: ['议题','大议题'], category: ['上级指标'], name: ['指标名称','名称','指标','原始指标','字段'], unit: ['单位'], definition: ['定义与统计口径','统计口径','定义'], matched: ['本次纳入依据'], note: ['口径核对','备注'], standardReference: ['标准条款及适用条件'], scopeSource: ['所选口径来源'] };
+  const aliases = { id: ['指标编号','编号','ID'], type: ['数据类型','类型'], dimension: ['维度','一级维度'], topic: ['议题','大议题','二级议题'], category: ['三级指标组','上级指标'], name: ['指标名称','名称','指标','原始指标','字段'], unit: ['单位'], definition: ['定义与统计口径','统计口径','定义'], matched: ['本次纳入依据'], note: ['口径核对','备注'], standardReference: ['标准条款及适用条件'], scopeSource: ['所选口径来源'] };
   const header = rows[0].map(cell => String(cell).trim());
   const indexes = Object.fromEntries(Object.entries(aliases).map(([key, names]) => [key, header.findIndex(value => names.includes(value))]));
   if (indexes.name < 0) return [];
